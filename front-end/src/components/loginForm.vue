@@ -1,20 +1,41 @@
 <template>
-  <div>
-    <b-form @submit="onSubmit">
-      <b-form-group id="input-group-1" label="Email address:" label-for="input-1" description="We'll never share your email with anyone else.">
-        <b-form-input id="input-1" v-model="email" type="email" placeholder="Enter email" required></b-form-input>
-      </b-form-group>
 
-      <b-form-group id="input-group-2" label="Your password:" label-for="input-2">
-        <b-form-input id="input-2" v-model="password" type="password" placeholder="Enter password" required></b-form-input>
-      </b-form-group>
+  <b-container class="w-50 border rounded mt-5 p-3 border-dark">
+    <div class="w-50 text-center mx-auto">
+      <PayMyBuddy />
+    </div>
+    <b-form @submit="onSubmit" class="text-center">
 
-      <b-button type="submit" variant="primary">Login</b-button>
+      <b-row class="w-50 mx-auto text-center m-3">
+            <b-input-group class="w-75 mx-auto">
+               <b-input-group-prepend is-text>
+                  <font-awesome-icon icon="fa-solid fa-envelope-open" />
+                </b-input-group-prepend>
+              <b-form-input id="input-1" v-model="email" type="email" placeholder="Enter email" required></b-form-input>
+            </b-input-group>
+      </b-row>
+
+      <b-row class="w-50 mx-auto text-center m-3"> 
+              <b-input-group class="w-75 mx-auto">
+                <b-input-group-prepend is-text>
+                  <font-awesome-icon icon="fa-solid fa-key" />
+                </b-input-group-prepend>
+                <b-form-input id="input-2" v-model="password" type="password" placeholder="Enter password" required></b-form-input>
+              </b-input-group>
+      </b-row>
+
+      <b-form-row class="mx-auto center">
+        <b-col class="mx-auto text-center my-3">
+          <b-button class="mx-auto text-center w-25" type="submit" variant="primary">Login</b-button>
+        </b-col>
+      </b-form-row>
     </b-form>
-  </div>
+  </b-container>
 </template>
 
 <script>
+ import PayMyBuddy from '../components/PayMyBuddy.vue'
+ 
 export default {
     name: 'LoginForm',
     data() {
@@ -23,6 +44,9 @@ export default {
           password:''
       }
     },
+    components : {
+     PayMyBuddy
+   },
     methods: {
       onSubmit(event) {
         event.preventDefault()
@@ -42,6 +66,7 @@ export default {
        .then(response => response.json())
         .then((response) => {
             console.log(response);
+            this.$router.push('home');
         })
         .catch(function(error) {
             alert('Il y a eu un problème avec l\'opération fetch: ' + error.message);
