@@ -54,7 +54,6 @@ export default {
             email : this.email,
             password : this.password
         }
-        console.log(data);
         fetch("http://localhost:9090/login",{
             method: 'POST',
             headers: { 
@@ -65,7 +64,7 @@ export default {
       })
        .then(response => response.json())
         .then((response) => {
-            console.log(response);
+            this.$store.commit("SET_USERDATA",response);
             this.$router.push('home');
         })
         .catch(function(error) {
