@@ -6,6 +6,7 @@ import Home from '../views/Home.vue'
 import Contact from '../views/Contact.vue'
 import Profile from '../views/Profile.vue'
 import Transfer from '../views/Transfer.vue'
+import AddConnection from '../views/AddConnection.vue'
 
 Vue.use(VueRouter)
 
@@ -39,6 +40,11 @@ const routes = [
     path: '/transfer',
     name: 'Transfer',
     component: Transfer
+  },
+  {
+    path: '/addconnection',
+    name: 'AddConnection',
+    component: AddConnection
   }
 ]
 

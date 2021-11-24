@@ -22,4 +22,14 @@ CREATE TABLE `users` (
   PRIMARY KEY (id)
 );
 
+DROP TABLE IF EXISTS `connections`;
+CREATE TABLE `connections` (
+  id int NOT NULL AUTO_INCREMENT,
+  userid int NOT NULL,
+  friendid int NOT NULL,
+  PRIMARY KEY (id),
+  CONSTRAINT fk_connectionuserid FOREIGN KEY (userid) REFERENCES users(id), 
+  CONSTRAINT fk_connectionfriendid FOREIGN KEY (friendid) REFERENCES users(id)
+);
+
 //TODO : Create table connections & bankaccount
