@@ -1,16 +1,18 @@
 <template>
-  <div>
-      <Navbar />
-      <h1>HOME PAGE</h1>
-      <h2> HELLO : {{$store.state.userdata}}</h2>
-  </div>
+<div class="m-3">
+    <Navbar />
+
+    <h1>
+        CONTACT PAGE
+    </h1>
+</div>
 </template>
 
 <script>
 import Navbar from '../components/Navbar.vue'
 
 export default {
-name: 'Home', 
+name: 'Contact', 
    components : {
      Navbar
    }
