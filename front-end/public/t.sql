@@ -7,8 +7,7 @@ CREATE TABLE `transactions` (
   datestamp DATETIME NOT NULL, 
   description varchar(255) NOT NULL,
   PRIMARY KEY (id),
-  CONSTRAINT fk_senderid FOREIGN KEY (senderid) REFERENCES users(id), 
-  CONSTRAINT fk_receiverid FOREIGN KEY (receiverid) REFERENCES users(id)
+  CONSTRAINT fk_senderid FOREIGN KEY (senderid) REFERENCES users(id)
 );
 
 DROP TABLE IF EXISTS `users`;
