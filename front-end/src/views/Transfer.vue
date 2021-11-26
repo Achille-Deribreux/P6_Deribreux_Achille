@@ -54,7 +54,6 @@ name: 'Transfer',
       }},
      mounted(){
        let url = "http://localhost:9090/getconnectionusersbyid?id="+this.$store.state.userdata.userid;
-       console.log(url)
        fetch(url,{
             method: 'GET',
             headers: { 
