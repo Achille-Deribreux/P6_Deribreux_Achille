@@ -4,23 +4,30 @@
     <h1>
         TRANSFER PAGE
     </h1>
-    <b-form @submit="onSubmit" inline>
-      <b-form-select v-model="form.receiverId" required>
-        <option v-for="friend in friends" :value="friend.id" :key="friend.friendid">{{friend.firstName+" "+friend.lastName}}</option>
-        </b-form-select>
-        <b-form-input v-model="form.amount" placeholder="amount" type="number"></b-form-input>
-      <b-button variant="primary" type="submit">Send</b-button>
-    </b-form>
+    <div>
+      <b-form @submit="onSubmit" inline>
+        <b-form-select v-model="form.receiverId" required>
+          <option v-for="friend in friends" :value="friend.id" :key="friend.friendid">{{friend.firstName+" "+friend.lastName}}</option>
+          </b-form-select>
+          <b-form-input v-model="form.amount" placeholder="amount" type="number"></b-form-input>
+        <b-button variant="success" type="submit">Pay</b-button>
+      </b-form>
+    </div>
+    <div>
+      <MyTransactions />
+    </div>
 </div>
 </template>
 
 <script>
 import Navbar from '../components/Navbar.vue'
+import MyTransactions from '../components/MyTransactions.vue'
 
 export default {
 name: 'Transfer', 
    components : {
-     Navbar
+     Navbar,
+     MyTransactions
    },
    data(){
      return{
