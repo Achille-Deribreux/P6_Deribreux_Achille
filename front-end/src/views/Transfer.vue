@@ -1,16 +1,22 @@
 <template>
   <div class="m-3">
     <Navbar />
-    <h1>
-        TRANSFER PAGE
-    </h1>
-    <div>
-      <b-form @submit="onSubmit" inline>
-        <b-form-select v-model="form.receiverId" required>
+    <b-row align-v="center">
+      <b-col col=6 align="center">
+        <span class="h5">Send Money</span>
+      </b-col>
+      <b-col col=6 align="center">
+        <b-button variant="primary" @click="addConnectionRedirect()" class="mx-2 w-50">Add Connection</b-button>
+      </b-col>
+    </b-row>
+    <div class="bg-light mb-4 mx-5 p-5">
+      <b-form @submit="onSubmit" inline class="w-75 mx-auto">
+        <b-form-select v-model="form.receiverId" required class="mx-2">
+          <option value=null>Please select an option</option>
           <option v-for="friend in friends" :value="friend.id" :key="friend.friendid">{{friend.firstName+" "+friend.lastName}}</option>
           </b-form-select>
-          <b-form-input v-model="form.amount" placeholder="amount" type="number"></b-form-input>
-        <b-button variant="success" type="submit">Pay</b-button>
+          <b-form-input v-model="form.amount" placeholder="amount" type="number" class="mx-2"></b-form-input>
+        <b-button variant="success" type="submit" class="mx-2 w-25">Pay</b-button>
       </b-form>
     </div>
     <div>
@@ -40,6 +46,9 @@ name: 'Transfer',
       friends:[]
      }
    },methods: {
+     addConnectionRedirect(){
+       this.$router.push('addconnection');
+     },
       onSubmit(event) {
         console.log(this.form);
         event.preventDefault()
