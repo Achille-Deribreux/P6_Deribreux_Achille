@@ -11,11 +11,11 @@
             </span>
 
             <span class="mx-2">
-                <router-link to="/home">Profile</router-link>
+                <router-link to="/profile">Profile</router-link>
             </span>
 
             <span class="mx-2">
-                <router-link to="/home">Contact</router-link>
+                <router-link to="/contact">Contact</router-link>
             </span>
 
             <span class="mx-2">
@@ -41,5 +41,6 @@ export default {
     display: flex;
     justify-content: space-between;
     align-items: center;
+    margin-bottom :3rem;
 }
 </style>
