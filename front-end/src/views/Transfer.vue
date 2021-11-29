@@ -50,7 +50,6 @@ name: 'Transfer',
        this.$router.push('addconnection');
      },
       onSubmit(event) {
-        console.log(this.form);
         event.preventDefault()
         fetch("http://localhost:9090/addtransaction",{
             method: 'POST',

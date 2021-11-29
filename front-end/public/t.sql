@@ -31,4 +31,12 @@ CREATE TABLE `connections` (
   CONSTRAINT fk_connectionfriendid FOREIGN KEY (friendid) REFERENCES users(id)
 );
 
-//TODO : Create table connections & bankaccount
+DROP TABLE IF EXISTS `bankaccount`;
+CREATE TABLE `bankaccount` (
+  id int NOT NULL AUTO_INCREMENT,
+  userid int NOT NULL,
+  accountnumber int NOT NULL,
+  bank varchar(255) NOT NULL,
+  PRIMARY KEY (id),
+  CONSTRAINT fk_bankaccountuserid FOREIGN KEY (userid) REFERENCES users(id)
+);
