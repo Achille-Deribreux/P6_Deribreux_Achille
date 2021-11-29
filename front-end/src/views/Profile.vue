@@ -11,19 +11,30 @@
         </b-col>
       </b-row>
     </b-container>
-    <MyBankAccounts />
+
+    <b-container>
+      <AddMoneyFromBank />
+    </b-container>
+
+    <b-container>
+      <MyBankAccounts />
+    </b-container>
 </div>
 </template>
 
 <script>
 import Navbar from '../components/Navbar.vue'
 import MyBankAccounts from '../components/MyBankAccounts.vue'
+import AddMoneyFromBank from '../components/AddMoneyFromBank.vue'
+
+
 
 export default {
 name: 'Profile', 
    components : {
      Navbar,
-     MyBankAccounts
+     MyBankAccounts,
+     AddMoneyFromBank
    }
 }
 </script>

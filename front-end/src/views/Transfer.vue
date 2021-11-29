@@ -2,10 +2,10 @@
   <div class="m-3">
     <Navbar />
     <b-row align-v="center">
-      <b-col col=6 align="center">
+      <b-col align="center">
         <span class="h5">Send Money</span>
       </b-col>
-      <b-col col=6 align="center">
+      <b-col align="center">
         <b-button variant="primary" @click="addConnectionRedirect()" class="mx-2 w-50">Add Connection</b-button>
       </b-col>
     </b-row>
