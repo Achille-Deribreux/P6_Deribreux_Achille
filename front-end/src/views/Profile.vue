@@ -12,8 +12,12 @@
       </b-row>
     </b-container>
 
-    <b-container>
+    <b-container class="my-2">
       <AddMoneyFromBank />
+    </b-container>
+
+    <b-container class="my-2">
+      <SendMoneyToBank />
     </b-container>
 
     <b-container>
@@ -26,7 +30,7 @@
 import Navbar from '../components/Navbar.vue'
 import MyBankAccounts from '../components/MyBankAccounts.vue'
 import AddMoneyFromBank from '../components/AddMoneyFromBank.vue'
-
+import SendMoneyToBank from '../components/SendMoneyToBank.vue'
 
 
 export default {
@@ -34,7 +38,8 @@ name: 'Profile',
    components : {
      Navbar,
      MyBankAccounts,
-     AddMoneyFromBank
+     AddMoneyFromBank,
+     SendMoneyToBank
    }
 }
 </script>
