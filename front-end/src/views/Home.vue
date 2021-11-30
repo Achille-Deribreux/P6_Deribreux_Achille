@@ -16,6 +16,12 @@ name: 'Home',
    components : {
      Navbar,
      MyTransactions
+   }/*,methods:{
+     updateBalance(){
+       this.$store.dispach('updateBalance');
+     }
+   }*/,mounted(){
+     this.$store.commit('UPDATE_BALANCE');
    }
 }
 </script>
