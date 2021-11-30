@@ -1,13 +1,15 @@
 <template>
     <div>
         <Navbar />
-        <b-form @submit="onSubmit">
+
+        <b-form @submit="onSubmit" align="center">
+            <p class="h5 my-4">Add connection : </p>
             <b-row class="w-50 mx-auto text-center m-3">
                 <b-form-select v-model="email" required class="mx-2">
                     <option value=null>Please select an option</option>
                     <option v-for="p in people" :value="p.email" :key="p.id">{{p.email}}</option>
                 </b-form-select>
-                <b-button type="submit" class="mx-auto text-center w-25" variant="primary">Add</b-button>
+                <b-button type="submit" class="mx-auto my-4 text-center w-25" variant="primary">Add</b-button>
             </b-row>
         </b-form>
     </div>

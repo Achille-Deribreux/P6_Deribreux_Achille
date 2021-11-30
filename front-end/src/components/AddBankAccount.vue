@@ -1,9 +1,9 @@
 <template>
     <div>
-        <b-form @submit="onSubmit" inline class="w-75 mx-auto">
-            <b-form-input v-model="form.bank" placeholder="Bank Name" type="text" class="mx-2"></b-form-input>
-            <b-form-input v-model="form.accountNumber" placeholder="Account Number" type="number" class="mx-2"></b-form-input>
-             <b-button variant="success" type="submit" class="mx-2 w-25">Add</b-button>
+        <b-form @submit="onSubmit" class="w-75 mx-auto">
+            <b-form-input v-model="form.bank" placeholder="Bank Name" type="text" class="m-2"></b-form-input>
+            <b-form-input v-model="form.accountNumber" placeholder="Account Number" type="number" class="m-2"></b-form-input>
+             <b-button variant="success" type="submit" class="m-4 w-25">Add</b-button>
         </b-form>
     </div>
 </template>

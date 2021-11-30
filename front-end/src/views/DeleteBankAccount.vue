@@ -1,16 +1,26 @@
 <template>
-   <b-form @submit="onSubmit" inline class="w-75 mx-auto">
-        <b-form-select v-model="form.accountNumber" required class="mx-2">
-          <option value=null>Please select an account</option>
-          <option v-for="account in bankaccounts" :value="account.accountNumber" :key="account.accountNumber">{{account.accountNumber}}</option>
-          </b-form-select>
-        <b-button variant="danger" type="submit" class="mx-2 w-25">Delete</b-button>
-    </b-form>
+<div>
+    <Navbar />
+    <b-container align="center">
+        <p class="h5 my-4">Supprimer un compte : </p>
+        <b-form @submit="onSubmit" class="w-50 mx-auto">
+            <b-form-select v-model="form.accountNumber" required class="mx-2">
+                <option value=null>Please select an account</option>
+                <option v-for="account in bankaccounts" :value="account.accountNumber" :key="account.accountNumber">{{account.accountNumber}}</option>
+            </b-form-select>
+            <b-button variant="danger" type="submit" class="m-4 w-25">Delete</b-button>
+        </b-form>
+    </b-container>
+</div>
 </template>
 
 <script>
+import Navbar from '../components/Navbar.vue' 
 export default {
  name: 'AddMoneyFromBank',
+    components:{
+        Navbar
+    },
     data(){
      return{
       form:{
