@@ -3,12 +3,10 @@
         <Navbar />
         <b-form @submit="onSubmit">
             <b-row class="w-50 mx-auto text-center m-3">
-                <b-input-group class="w-75 mx-auto">
-                    <b-input-group-prepend is-text>
-                        <font-awesome-icon icon="fa-solid fa-envelope-open" />
-                    </b-input-group-prepend>
-                    <b-form-input id="input-1" v-model="email" type="email" placeholder="Enter email" required></b-form-input>
-                </b-input-group>
+                <b-form-select v-model="email" required class="mx-2">
+                    <option value=null>Please select an option</option>
+                    <option v-for="p in people" :value="p.email" :key="p.id">{{p.email}}</option>
+                </b-form-select>
                 <b-button type="submit" class="mx-auto text-center w-25" variant="primary">Add</b-button>
             </b-row>
         </b-form>
@@ -21,7 +19,8 @@ export default {
 name: 'AddConnection', 
     data() {
       return {
-           email: ''
+           email: '',
+           people:[]
       };
     },
    components : {
@@ -50,7 +49,25 @@ name: 'AddConnection',
             alert('Il y a eu un problème avec l\'opération fetch: ' + error.message);
           });
       }
-    }
+    },
+     mounted(){
+       let url = "http://localhost:9090/getAllNonConnectionUsers?userId="+this.$store.state.userdata.userid;
+       fetch(url,{
+            method: 'GET',
+            headers: { 
+            'Accept': 'application/json', 
+            'Content-Type': 'application/json' ,
+            }
+      })
+       .then(response => response.json())
+        .then((response) => {
+            console.log(response)
+           this.people = response;
+        })
+        .catch(function(error) {
+            alert('Il y a eu un problème avec l\'opération fetch: ' + error.message);
+          });
+      }
 }
 </script>
 
