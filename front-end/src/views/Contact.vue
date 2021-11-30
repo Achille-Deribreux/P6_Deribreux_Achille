@@ -1,7 +1,7 @@
 <template>
 <div class="m-3">
     <Navbar />
-    <b-row align-v="center my-3">
+    <b-row class="center my-3">
       <b-col align="center">
         <span class="h5">My connections :</span>
       </b-col>
