@@ -1,6 +1,14 @@
 <template>
 <div class="m-3">
     <Navbar />
+    <b-row class="center my-3">
+      <b-col align="center">
+        <span class="h5">My connections :</span>
+      </b-col>
+      <b-col align="center">
+        <b-button variant="primary" @click="addConnectionRedirect()" class="mx-2 w-50">Add Connection</b-button>
+      </b-col>
+    </b-row>
     <div class="card" >
       <ContactCard v-for="friend in friends" :letter="friend.firstName.charAt(0)+friend.lastName.charAt(0)"  v-bind:key="friend.id" :firstname="friend.firstName" :lastname="friend.lastName" :email="friend.email"/>
     </div>
@@ -21,8 +29,12 @@ name: 'Contact',
      return{
       friends:[]
      }
-   }, 
+   },methods: {
+     addConnectionRedirect(){
+       this.$router.push('addconnection');
+   }},
    mounted(){
+     this.$store.commit('UPDATE_BALANCE');
        let url = "http://localhost:9090/getconnectionusersbyid?id="+this.$store.state.userdata.userid;
        fetch(url,{
             method: 'GET',

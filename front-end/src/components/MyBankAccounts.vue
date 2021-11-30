@@ -1,5 +1,6 @@
 <template>
   <div>
+      <h3 align="center">My Accounts : </h3>
       <b-table striped hover :items="accounts" :fields="fields"></b-table>
   </div>
 </template>

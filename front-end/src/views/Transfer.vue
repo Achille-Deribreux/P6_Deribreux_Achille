@@ -2,10 +2,10 @@
   <div class="m-3">
     <Navbar />
     <b-row align-v="center">
-      <b-col col=6 align="center">
+      <b-col align="center">
         <span class="h5">Send Money</span>
       </b-col>
-      <b-col col=6 align="center">
+      <b-col align="center">
         <b-button variant="primary" @click="addConnectionRedirect()" class="mx-2 w-50">Add Connection</b-button>
       </b-col>
     </b-row>
@@ -16,7 +16,8 @@
           <option v-for="friend in friends" :value="friend.id" :key="friend.friendid">{{friend.firstName+" "+friend.lastName}}</option>
           </b-form-select>
           <b-form-input v-model="form.amount" placeholder="amount" type="number" class="mx-2"></b-form-input>
-        <b-button variant="success" type="submit" class="mx-2 w-25">Pay</b-button>
+           <b-form-input v-model="form.description" placeholder="description" type="text" class="mx-2"></b-form-input>
+        <b-button variant="success" type="submit" class="mx-2">Pay</b-button>
       </b-form>
     </div>
     <div>
@@ -41,7 +42,7 @@ name: 'Transfer',
         amount : 0,
         receiverId : null,
         userId : this.$store.state.userdata.userid,
-        description : "hello"
+        description : ""
       },
       friends:[]
      }
@@ -61,6 +62,7 @@ name: 'Transfer',
       })
        .then(response => response.json())
         .then((response) => {
+          this.$store.commit('UPDATE_BALANCE');
             console.log(response)
         })
         .catch(function(error) {
@@ -68,6 +70,7 @@ name: 'Transfer',
           });
       }},
      mounted(){
+       this.$store.commit('UPDATE_BALANCE');
        let url = "http://localhost:9090/getconnectionusersbyid?id="+this.$store.state.userdata.userid;
        fetch(url,{
             method: 'GET',

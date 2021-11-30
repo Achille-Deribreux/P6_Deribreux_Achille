@@ -8,6 +8,7 @@ import Profile from '../views/Profile.vue'
 import Transfer from '../views/Transfer.vue'
 import AddConnection from '../views/AddConnection.vue'
 import AddBankAccount from '../views/AddBankAccount'
+import DeleteBankAccount from '../views/DeleteBankAccount'
 
 Vue.use(VueRouter)
 
@@ -51,6 +52,11 @@ const routes = [
     path: '/addbankaccount',
     name: 'AddBankAccount',
     component: AddBankAccount
+  },
+  {
+    path: '/deletebankaccount',
+    name: 'DeleteBankAccount',
+    component: DeleteBankAccount
   }
 ]
 

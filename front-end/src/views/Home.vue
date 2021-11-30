@@ -1,9 +1,9 @@
 <template>
   <div>
       <Navbar />
-      <h1>HOME PAGE</h1>
-      <h2> HELLO : {{$store.state.userdata}}</h2>
-      <MyTransactions />
+      <b-container>
+        <MyTransactions />
+      </b-container>
   </div>
 </template>
 
@@ -16,6 +16,12 @@ name: 'Home',
    components : {
      Navbar,
      MyTransactions
+   }/*,methods:{
+     updateBalance(){
+       this.$store.dispach('updateBalance');
+     }
+   }*/,mounted(){
+     this.$store.commit('UPDATE_BALANCE');
    }
 }
 </script>
