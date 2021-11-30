@@ -12,12 +12,30 @@
       </b-row>
     </b-container>
 
-    <b-container class="my-2">
-      <AddMoneyFromBank />
+    <b-row>
+      <b-col align="center">
+        <b-button variant="danger" @click="deleteBankAccountRedirect()" class="mx-2 w-50">Delete bankaccount</b-button>
+      </b-col>
+
+      <b-col align="center">
+        <b-button variant="primary" @click="addBankAccountRedirect()" class="mx-2 w-50">Add bankaccount</b-button>
+      </b-col>
+    </b-row>
+
+    
+    <b-container align="center" class="py-3">
+      <span class="h5">Get Money from bank</span>
+      <div class="bg-light mb-4 mx-5 p-4">
+         <AddMoneyFromBank />
+      </div>
     </b-container>
 
-    <b-container class="my-2">
-      <SendMoneyToBank />
+    
+    <b-container align="center" class="py-3">
+      <span class="h5">Send Money To bank</span>
+      <div class="bg-light mb-4 mx-5 p-4">
+         <SendMoneyToBank />
+      </div>
     </b-container>
 
     <b-container>
@@ -40,6 +58,16 @@ name: 'Profile',
      MyBankAccounts,
      AddMoneyFromBank,
      SendMoneyToBank
+   },
+   methods:{
+     deleteBankAccountRedirect(){
+      this.$router.push('DeleteBankAccount');
+     },
+     addBankAccountRedirect(){
+      this.$router.push('AddBankAccount');
+     }
+
+
    }
 }
 </script>
