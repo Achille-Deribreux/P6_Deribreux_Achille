@@ -16,7 +16,8 @@
           <option v-for="friend in friends" :value="friend.id" :key="friend.friendid">{{friend.firstName+" "+friend.lastName}}</option>
           </b-form-select>
           <b-form-input v-model="form.amount" placeholder="amount" type="number" class="mx-2"></b-form-input>
-        <b-button variant="success" type="submit" class="mx-2 w-25">Pay</b-button>
+           <b-form-input v-model="form.description" placeholder="description" type="text" class="mx-2"></b-form-input>
+        <b-button variant="success" type="submit" class="mx-2">Pay</b-button>
       </b-form>
     </div>
     <div>
@@ -41,7 +42,7 @@ name: 'Transfer',
         amount : 0,
         receiverId : null,
         userId : this.$store.state.userdata.userid,
-        description : "hello"
+        description : ""
       },
       friends:[]
      }
