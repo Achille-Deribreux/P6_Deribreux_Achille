@@ -34,6 +34,7 @@ name: 'Contact',
        this.$router.push('addconnection');
    }},
    mounted(){
+     this.$store.commit('UPDATE_BALANCE');
        let url = "http://localhost:9090/getconnectionusersbyid?id="+this.$store.state.userdata.userid;
        fetch(url,{
             method: 'GET',

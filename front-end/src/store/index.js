@@ -43,23 +43,6 @@ export default new Vuex.Store({
     },
   },
   actions: {
-    /*
-    updateBalance({commit}){
-      fetch("http://localhost:9090/userById?id="+this.$store.state.userdata.userid,{
-            method: 'GET',
-            headers: { 
-            'Accept': 'application/json', 
-            'Content-Type': 'application/json' ,
-            }
-      })
-       .then(response => response.json())
-        .then((response) => {
-          commit("SET_BALANCE",response.userbalance);
-        })
-        .catch(function(error) {
-            alert('Il y a eu un problème avec l\'opération fetch: ' + error.message);
-          })
-      }*/
     },
   modules: {
   }

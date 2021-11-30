@@ -65,6 +65,9 @@ name: 'Profile',
      },
      addBankAccountRedirect(){
       this.$router.push('AddBankAccount');
+     },
+     mounted(){
+       this.$store.commit('UPDATE_BALANCE');
      }
 
 

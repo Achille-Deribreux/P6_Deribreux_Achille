@@ -62,6 +62,7 @@ name: 'Transfer',
       })
        .then(response => response.json())
         .then((response) => {
+          this.$store.commit('UPDATE_BALANCE');
             console.log(response)
         })
         .catch(function(error) {
@@ -69,6 +70,7 @@ name: 'Transfer',
           });
       }},
      mounted(){
+       this.$store.commit('UPDATE_BALANCE');
        let url = "http://localhost:9090/getconnectionusersbyid?id="+this.$store.state.userdata.userid;
        fetch(url,{
             method: 'GET',
