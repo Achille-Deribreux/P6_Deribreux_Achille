@@ -1,6 +1,9 @@
 package com.PayMyBuddy.PayMyBuddy.Service;
 
 import com.PayMyBuddy.PayMyBuddy.DTO.UserDTO;
+import com.PayMyBuddy.PayMyBuddy.Exceptions.CustomExceptions.IncorrectLoginException;
+import com.PayMyBuddy.PayMyBuddy.Exceptions.CustomExceptions.NotEnoughBalanceException;
+import com.PayMyBuddy.PayMyBuddy.Exceptions.CustomExceptions.UserNotFoundException;
 import com.PayMyBuddy.PayMyBuddy.Model.User;
 import com.PayMyBuddy.PayMyBuddy.Repository.UserDAO;
 import org.modelmapper.ModelMapper;
@@ -36,38 +39,24 @@ public class UserService {
     }
 
     public UserDTO checkLogin(User user){
-        /*for(User u : userDAO.findAll()){
-            if(u.getEmail().equals(user.getEmail())&&u.getPassword().equals(user.getPassword())){
-                return new UserDTO(u.getId(),u.getFirstName(), u.getLastName(),u.getEmail(), u.getBalance());
-            }
-        }
-        //TODO : return custom exception instead of null
-        return null;*/
-
-
-
         return convertToDto(
                 getAllUsers().stream()
                         .filter(u -> u.getEmail().equals(user.getEmail())&&u.getPassword().equals(user.getPassword()))
-                        .findAny().orElseThrow(RuntimeException::new)
+                        .findAny().orElseThrow(()-> new IncorrectLoginException(""))
         );
-        //TODO : custom exception
     }
 
     public User getUserById(Integer userId){
-        return userDAO.findById(userId).orElse(null);
-        //TODO : return custom exception instead of orElse
+        return userDAO.findById(userId).orElseThrow(()->new UserNotFoundException("For id " + userId));
     }
 
     public String getUserNameById(Integer userId){
-        User user = userDAO.findById(userId).orElse(null);
-        assert user != null;
+        User user = userDAO.findById(userId).orElseThrow(()->new UserNotFoundException("For id " + userId));
         return user.getFirstName() + " "+user.getLastName();
-        //TODO : return custom exception assert and orElse
     }
 
     public User getUserByEmail(String email){
-        return userDAO.findByEmail(email).orElse(null);
+        return userDAO.findByEmail(email).orElseThrow(()->new UserNotFoundException("For email " + email));
     }
 
     public User addUser (User userToAdd){
@@ -92,11 +81,9 @@ public class UserService {
 
     public void checkUserBalance(Integer userId, Integer amount){
         User user = getUserById(userId);
-        if(user.getBalance() > amount){
-        }else {
-
+        if(user.getBalance() < amount){
+            throw new NotEnoughBalanceException();
         }
-        //TODO : return custom exception bc not enought balance
     }
 }
 

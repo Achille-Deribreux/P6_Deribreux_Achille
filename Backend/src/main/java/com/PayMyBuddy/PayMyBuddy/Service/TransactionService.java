@@ -22,18 +22,19 @@ public class TransactionService {
     @Autowired
     UserService userService;
 
-    public Iterable<Transaction> getAllTransactions(){
+    /*public Iterable<Transaction> getAllTransactions(){
         return transactionDAO.findAll();
     }
 
     public Optional<Transaction> getTransactionById(Integer transactionId){
         return transactionDAO.findById(transactionId);
-    }
+    }*/
 
-    //GetAllTransactionsById in a new DTO
     public List<TransactionDTO> getAllTransactionById(Integer userId){
-        //TODO : IF param==0 then trhow not found exception
-        //TODO : cleanup
+        if(userId == 0){
+            return Collections.emptyList();
+        }
+        //TODO : cleanup and use collectors
         List<TransactionDTO> allTransactions = new ArrayList<>();
         Iterable<Transaction> negativeTransactions = getTransactionsBySenderId(userId);
         Iterable<Transaction> positiveTransactions = getTransactionsByReceiverId(userId);
@@ -104,11 +105,5 @@ public class TransactionService {
                         "Money send to my account N° " + creditBankAccountDTO.getAccountNumber()
                 ));
     }
-
-    public void deleteTransactionById(Integer transactionId){
-        transactionDAO.deleteById(transactionId);
-    }
-
-
 }
 

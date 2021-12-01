@@ -50,14 +50,6 @@ public class ConnectionService {
     }
 
     public List<UserDTO> getAllNonConnectionUsers(Integer userId){
-        /*List<UserDTO> nonConnectionUserList = new ArrayList<>();
-        for(User u : getAllUsers()){
-            if(u.getId() != userId && !connectionService.findConnectionsIdById(userId).contains(u.getId())){
-                nonConnectionUserList.add(new UserDTO(u.getId(),u.getFirstName(), u.getLastName(),u.getEmail(), u.getBalance()));
-            }
-        }
-        return nonConnectionUserList;*/
-
         return userService.convertListToDTOList(
                 userService.getAllUsers().stream()
                         .filter(u -> u.getId() != userId && !findConnectionsIdById(userId).contains(u.getId()))

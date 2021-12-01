@@ -1,6 +1,7 @@
 package com.PayMyBuddy.PayMyBuddy.Service;
 
 import com.PayMyBuddy.PayMyBuddy.DTO.BankAccountDTO;
+import com.PayMyBuddy.PayMyBuddy.Exceptions.CustomExceptions.BankAccountNotFoundException;
 import com.PayMyBuddy.PayMyBuddy.Model.BankAccount;
 import com.PayMyBuddy.PayMyBuddy.Repository.BankAccountDAO;
 import org.modelmapper.ModelMapper;
@@ -9,7 +10,6 @@ import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Optional;
 
 @Service
 public class BankAccountService {
@@ -24,14 +24,13 @@ public class BankAccountService {
         return bankAccountDAO.findAll();
     }
 
-    public Optional<BankAccount> getBankAccountById(Integer id){
-        return bankAccountDAO.findById(id);
+    public BankAccount getBankAccountById(Integer id){
+        return bankAccountDAO.findById(id).orElseThrow(()-> new BankAccountNotFoundException("for id "+id));
     }
 
     public Integer getBankAccountIdByNumber(BankAccount bankAccount){
-        BankAccount b = bankAccountDAO.findByAccountNumber(bankAccount.getAccountNumber()).orElse(null);
+        BankAccount b = bankAccountDAO.findByAccountNumber(bankAccount.getAccountNumber()).orElseThrow(()-> new BankAccountNotFoundException("for number "+bankAccount.getAccountNumber()));
         return b.getId();
-        //TODO : Not find exception
     }
 
     public List<BankAccountDTO> getBankAccountsByUserId(Integer userId){
