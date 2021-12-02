@@ -84,11 +84,20 @@ export default {
       })
        .then(response => response.json())
         .then((response) => {
+          this.$bvToast.toast('Account created !', {
+              title: "Success",
+              variant: "success",
+              solid: true
+        });
             this.$store.commit("SET_USERDATA",response);
             this.$router.push('home');
         })
-        .catch(function(error) {
-            alert('Il y a eu un problème avec l\'opération fetch: ' + error.message);
+        .catch(function() {
+           this.$bvToast.toast('Impossible to create an account', {
+              title: "Error",
+              variant: "danger",
+              solid: true
+        });
           });
       }
   }

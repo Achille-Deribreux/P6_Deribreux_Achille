@@ -41,10 +41,19 @@ export default {
             body: JSON.stringify(this.form)
       })
         .then(() => {
+            this.$bvToast.toast('Account has been deleted', {
+              title: "Success",
+              variant: "success",
+              solid: true
+        });
             this.$router.push('Profile');
         })
-        .catch(function(error) {
-            alert('Il y a eu un problème avec l\'opération fetch: ' + error.message);
+        .catch(function() {
+           this.$bvToast.toast('Impossible to delete account', {
+              title: "Error",
+              variant: "danger",
+              solid: true
+        });
           });
       }},
       mounted(){

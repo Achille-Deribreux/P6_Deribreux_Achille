@@ -1,6 +1,7 @@
 <template>
 
   <b-container class="w-50 border rounded mt-5 p-3 border-dark">
+
     <div class="w-50 text-center mx-auto">
       <PayMyBuddy />
     </div>
@@ -64,11 +65,20 @@ export default {
       })
        .then(response => response.json())
         .then((response) => {
+          this.$bvToast.toast('Connected !', {
+              title: "Success",
+              variant: "success",
+              solid: true
+        });
             this.$store.commit("SET_USERDATA",response);
             this.$router.push('home');
         })
-        .catch(function(error) {
-            alert('Il y a eu un problème avec l\'opération fetch: ' + error.message);
+        .catch(function() {
+         this.$bvToast.toast('Impossible to connect', {
+              title: "Error",
+              variant: "danger",
+              solid: true
+        });
           });
       }
   }

@@ -43,12 +43,19 @@ name: 'AddConnection',
             },
             body: JSON.stringify(data)
       })
-       .then(response => response.json())
-        .then((response) => {
-            console.log(response);
+        .then(() => {
+            this.$bvToast.toast('Connection added', {
+              title: "Success",
+              variant: "success",
+              solid: true
+        });
         })
-        .catch(function(error) {
-            alert('Il y a eu un problème avec l\'opération fetch: ' + error.message);
+        .catch(function() {
+             this.$bvToast.toast('Impossible to add connection', {
+              title: "Error",
+              variant: "danger",
+              solid: true
+        });
           });
       }
     },
