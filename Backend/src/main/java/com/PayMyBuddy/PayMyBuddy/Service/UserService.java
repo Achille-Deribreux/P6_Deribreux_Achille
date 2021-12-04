@@ -8,6 +8,10 @@ import com.PayMyBuddy.PayMyBuddy.Model.User;
 import com.PayMyBuddy.PayMyBuddy.Repository.UserDAO;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.security.core.userdetails.UserDetailsService;
+import org.springframework.security.core.userdetails.UsernameNotFoundException;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
@@ -21,6 +25,9 @@ public class UserService {
 
     @Autowired
     private ModelMapper modelMapper;
+
+    @Autowired
+    private PasswordEncoder passwordEncoder;
 
     public void addMoneyToBalance(Integer userId, Integer moneyToAdd){
         User user = getUserById(userId);
@@ -60,6 +67,7 @@ public class UserService {
     }
 
     public User addUser (User userToAdd){
+        userToAdd.setPassword(passwordEncoder.encode(userToAdd.getPassword()));
         return userDAO.save(userToAdd);
     }
 

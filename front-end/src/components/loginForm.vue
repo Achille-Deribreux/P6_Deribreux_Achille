@@ -65,6 +65,7 @@ export default {
       })
        .then(response => response.json())
         .then((response) => {
+          console.log("then")
           this.$bvToast.toast('Connected !', {
               title: "Success",
               variant: "success",
@@ -74,6 +75,7 @@ export default {
             this.$router.push('home');
         })
         .catch(function() {
+          console.log("catch")
          this.$bvToast.toast('Impossible to connect', {
               title: "Error",
               variant: "danger",
