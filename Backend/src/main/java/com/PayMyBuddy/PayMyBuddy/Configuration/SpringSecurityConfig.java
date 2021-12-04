@@ -1,5 +1,6 @@
 package com.PayMyBuddy.PayMyBuddy.Configuration;
 
+import com.PayMyBuddy.PayMyBuddy.jwt.JwtTokenVerifier;
 import com.PayMyBuddy.PayMyBuddy.jwt.JwtUserNameAndPasswordAuthenticationFilter;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
@@ -36,6 +37,7 @@ public class SpringSecurityConfig extends WebSecurityConfigurerAdapter {
                 .sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS)
                 .and()
                 .addFilter(new JwtUserNameAndPasswordAuthenticationFilter(authenticationManager()))
+                .addFilterAfter(new JwtTokenVerifier(),JwtUserNameAndPasswordAuthenticationFilter.class)
                 .authorizeRequests()
                 .antMatchers("/*login*", "/*signup*").permitAll()
                 .anyRequest().authenticated();

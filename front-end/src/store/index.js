@@ -11,6 +11,7 @@ export default new Vuex.Store({
       userid:0,
       userbalance:0,
       email:"",
+      token : ""
     }
   },
   mutations: {
@@ -23,6 +24,9 @@ export default new Vuex.Store({
     },
     SET_BALANCE(state, balance){
       state.userdata.userbalance=balance
+    },
+    SET_TOKEN(state, token){
+      state.userdata.token = token
     },
     UPDATE_BALANCE(){
       fetch("http://localhost:9090/userById?id="+this.state.userdata.userid,{

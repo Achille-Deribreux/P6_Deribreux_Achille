@@ -12,7 +12,7 @@
                <b-input-group-prepend is-text>
                   <font-awesome-icon icon="fa-solid fa-envelope-open" />
                 </b-input-group-prepend>
-              <b-form-input id="input-1" v-model="email" type="email" placeholder="Enter email" required></b-form-input>
+              <b-form-input id="input-1" v-model="username" type="email" placeholder="Enter email" required></b-form-input>
             </b-input-group>
       </b-row>
 
@@ -41,7 +41,7 @@ export default {
     name: 'LoginForm',
     data() {
       return {
-          email: '',
+          username: '',
           password:''
       }
     },
@@ -52,11 +52,12 @@ export default {
       onSubmit(event) {
         event.preventDefault()
         const data = {
-            email : this.email,
+            username : this.username,
             password : this.password
         }
         fetch("http://localhost:9090/login",{
             method: 'POST',
+            mode: 'no-cors',
             headers: { 
             'Accept': 'application/json', 
             'Content-Type': 'application/json' ,
@@ -66,21 +67,13 @@ export default {
        .then(response => response.json())
         .then((response) => {
           console.log("then")
-          this.$bvToast.toast('Connected !', {
-              title: "Success",
-              variant: "success",
-              solid: true
-        });
+          //console.log(response.headers)
             this.$store.commit("SET_USERDATA",response);
+            //this.$store.commit("SET_TOKEN",response.headers);
             this.$router.push('home');
         })
         .catch(function() {
           console.log("catch")
-         this.$bvToast.toast('Impossible to connect', {
-              title: "Error",
-              variant: "danger",
-              solid: true
-        });
           });
       }
   }
