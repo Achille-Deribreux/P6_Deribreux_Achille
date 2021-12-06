@@ -54,13 +54,12 @@ export default new Vuex.Store({
             headers: { 
             'Accept': 'application/json', 
             'Content-Type': 'application/json' ,
-            'Authorization': this.state.userdata.token
+            'Authorization': localStorage.getItem('token')
             }
       })
       .then(response => response.json())
       .then((response) => {
-        this.commit("SET_USERDATA",response);
-        console.log(this.state.userdata);
+      this.commit("SET_USERDATA",response);
       })
       .catch(function(error) {
           alert('Il y a eu un problème avec l\'opération fetch: ' + error.message);
