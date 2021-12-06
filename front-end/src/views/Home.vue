@@ -20,9 +20,9 @@ name: 'Home',
      updateBalance(){
        this.$store.dispach('updateBalance');
      }
-   }*/,mounted(){
+   }*//*,mounted(){
      this.$store.commit('UPDATE_BALANCE');
-   }
+   }*/
 }
 </script>
 
