@@ -29,15 +29,23 @@ export default {
             headers: { 
             'Accept': 'application/json', 
             'Content-Type': 'application/json' ,
+             'Authorization': localStorage.getItem('token')
             },
             body: JSON.stringify(this.form)
       })
-       .then(response => response.json())
-        .then((response) => {
-            console.log(response)
+        .then(() => {
+           this.$bvToast.toast('Bankaccount added', {
+              title: "Success",
+              variant: "success",
+              solid: true
+        });
         })
-        .catch(function(error) {
-            alert('Il y a eu un problème avec l\'opération fetch: ' + error.message);
+        .catch(function() {
+           this.$bvToast.toast('Impossible to add bankaccount', {
+              title: "Error",
+              variant: "danger",
+              solid: true
+        });
           });
         }
     }

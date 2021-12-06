@@ -31,7 +31,7 @@ public class ExceptionsHandler {
     public ResponseEntity<Object> handleIncorrectLoginException(IncorrectLoginException e){
         logger.error("Incorrect email/password");
         CustomErrorResponse res = new CustomErrorResponse(e.getMessage(),e, HttpStatus.UNAUTHORIZED, ZonedDateTime.now());
-        return new ResponseEntity<>(res, HttpStatus.UNAUTHORIZED);
+        return new ResponseEntity<>(res, HttpStatus.FORBIDDEN);
     }
 
     @ExceptionHandler(NotEnoughBalanceException.class)

@@ -1,6 +1,7 @@
 <template>
   <div class="m-3">
     <Navbar />
+    <b-toaster name="example-toast"></b-toaster>
     <b-row align-v="center">
       <b-col align="center">
         <span class="h5">Send Money</span>
@@ -57,15 +58,26 @@ name: 'Transfer',
             headers: { 
             'Accept': 'application/json', 
             'Content-Type': 'application/json' ,
+             'Authorization': localStorage.getItem('token')
             },
             body: JSON.stringify(this.form)
       })
        .then(response => response.json())
         .then((response) => {
+          this.$bvToast.toast('Money has been send', {
+              title: "Success",
+              variant: "success",
+              solid: true
+        });
           this.$store.commit('UPDATE_BALANCE');
             console.log(response)
         })
         .catch(function(error) {
+             this.$bvToast.toast('Impossible to transfer money', {
+              title: "Error",
+              variant: "danger",
+              solid: true
+        });
             alert('Il y a eu un problème avec l\'opération fetch: ' + error.message);
           });
       }},
@@ -77,6 +89,7 @@ name: 'Transfer',
             headers: { 
             'Accept': 'application/json', 
             'Content-Type': 'application/json' ,
+             'Authorization': localStorage.getItem('token')
             }
       })
        .then(response => response.json())

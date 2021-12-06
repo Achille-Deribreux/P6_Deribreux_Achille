@@ -11,6 +11,7 @@ export default new Vuex.Store({
       userid:0,
       userbalance:0,
       email:"",
+      token : ""
     }
   },
   mutations: {
@@ -24,12 +25,19 @@ export default new Vuex.Store({
     SET_BALANCE(state, balance){
       state.userdata.userbalance=balance
     },
+    SET_TOKEN(state, token){
+      state.userdata.token = token
+    },
+    SET_EMAIL(state, email){
+      state.userdata.email = email
+    },
     UPDATE_BALANCE(){
       fetch("http://localhost:9090/userById?id="+this.state.userdata.userid,{
             method: 'GET',
             headers: { 
             'Accept': 'application/json', 
-            'Content-Type': 'application/json' ,
+            'Content-Type': 'application/json',
+            'Authorization': this.state.userdata.token
             }
       })
        .then(response => response.json())
@@ -40,7 +48,23 @@ export default new Vuex.Store({
         .catch(function(error) {
             alert('Il y a eu un problème avec l\'opération fetch: ' + error.message);
           })
-    },
+    },GET_USERINFO(){
+      fetch("http://localhost:9090/userByEmail?email="+this.state.userdata.email,{
+            method: 'GET',
+            headers: { 
+            'Accept': 'application/json', 
+            'Content-Type': 'application/json' ,
+            'Authorization': localStorage.getItem('token')
+            }
+      })
+      .then(response => response.json())
+      .then((response) => {
+      this.commit("SET_USERDATA",response);
+      })
+      .catch(function(error) {
+          alert('Il y a eu un problème avec l\'opération fetch: ' + error.message);
+        })
+    }
   },
   actions: {
     },

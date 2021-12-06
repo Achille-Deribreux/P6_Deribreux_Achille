@@ -33,6 +33,7 @@ export default {
             headers: { 
             'Accept': 'application/json', 
             'Content-Type': 'application/json' ,
+             'Authorization': localStorage.getItem('token')
             }
       })
        .then(response => response.json())
@@ -42,6 +43,7 @@ export default {
         .catch(function(error) {
             alert('Il y a eu un problème avec l\'opération fetch: ' + error.message);
           });
+         this.$store.commit('UPDATE_BALANCE');
       }
 }
 </script>

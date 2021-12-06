@@ -22,13 +22,19 @@ public class UserController {
         return new ResponseEntity<>(user, HttpStatus.OK);
     }
 
+    @GetMapping(value="/userByEmail")
+    public ResponseEntity<UserDTO> getUserByEmail(@RequestParam(value = "email") String email){
+        UserDTO user = userService.convertToDto(userService.getUserByEmail(email));
+        return new ResponseEntity<>(user, HttpStatus.OK);
+    }
+
     @PostMapping(value="/signup", consumes = "application/json", produces = "application/json")
     public ResponseEntity<UserDTO> addUser(@RequestBody User user){
         UserDTO userdto = userService.convertToDto( userService.addUser(user));
         return new ResponseEntity<>(userdto, HttpStatus.CREATED);
     }
 
-    @PostMapping(value="/login", consumes = "application/json", produces = "application/json")
+   /* @PostMapping(value="/login", consumes = "application/json", produces = "application/json")
     public ResponseEntity<UserDTO>login(@RequestBody User user){
         if(user.getEmail() == null || user.getPassword() == null){
             return new ResponseEntity<>(new UserDTO(), HttpStatus.NO_CONTENT);
@@ -36,5 +42,5 @@ public class UserController {
             UserDTO userDTO = userService.checkLogin(user);
             return new ResponseEntity<>(userDTO, HttpStatus.OK);
         }
-    }
+    }*/
 }

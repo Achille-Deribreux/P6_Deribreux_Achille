@@ -1,6 +1,7 @@
 <template>
 
   <b-container class="w-50 border rounded mt-5 p-3 border-dark">
+
     <div class="w-50 text-center mx-auto">
       <PayMyBuddy />
     </div>
@@ -11,7 +12,7 @@
                <b-input-group-prepend is-text>
                   <font-awesome-icon icon="fa-solid fa-envelope-open" />
                 </b-input-group-prepend>
-              <b-form-input id="input-1" v-model="email" type="email" placeholder="Enter email" required></b-form-input>
+              <b-form-input id="input-1" v-model="username" type="email" placeholder="Enter email" required></b-form-input>
             </b-input-group>
       </b-row>
 
@@ -40,7 +41,7 @@ export default {
     name: 'LoginForm',
     data() {
       return {
-          email: '',
+          username: '',
           password:''
       }
     },
@@ -51,7 +52,7 @@ export default {
       onSubmit(event) {
         event.preventDefault()
         const data = {
-            email : this.email,
+            username : this.username,
             password : this.password
         }
         fetch("http://localhost:9090/login",{
@@ -62,13 +63,16 @@ export default {
             },
             body: JSON.stringify(data)
       })
-       .then(response => response.json())
+       //.then(response => response.json())
         .then((response) => {
-            this.$store.commit("SET_USERDATA",response);
-            this.$router.push('home');
+          this.$store.commit("SET_EMAIL",this.username);
+          this.$store.commit("SET_TOKEN",response.headers.get("Authorization"));
+          localStorage.setItem('token', response.headers.get("Authorization"));
+          this.$store.commit("GET_USERINFO");
+          setTimeout( () => this.$router.push('home'), 1000)
         })
-        .catch(function(error) {
-            alert('Il y a eu un problème avec l\'opération fetch: ' + error.message);
+        .catch(function() {
+          console.log("catch")
           });
       }
   }
