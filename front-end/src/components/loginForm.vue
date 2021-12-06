@@ -66,7 +66,10 @@ export default {
        //.then(response => response.json())
         .then((response) => {
           console.log("then")
-          console.log(response.headers.get("Authorization"));
+          this.$store.commit("SET_EMAIL",this.username);
+          this.$store.commit("SET_TOKEN",response.headers.get("Authorization"));
+          this.$store.commit("GET_USERINFO");
+          this.$router.push('home');
           //console.log(response.headers)
             //this.$store.commit("SET_USERDATA",response);
             //this.$store.commit("SET_TOKEN",response.headers);

@@ -40,6 +40,7 @@ name: 'AddConnection',
             headers: { 
             'Accept': 'application/json', 
             'Content-Type': 'application/json' ,
+             'Authorization': this.state.userdata.token
             },
             body: JSON.stringify(data)
       })
@@ -66,6 +67,7 @@ name: 'AddConnection',
             headers: { 
             'Accept': 'application/json', 
             'Content-Type': 'application/json' ,
+             'Authorization': this.state.userdata.token
             }
       })
        .then(response => response.json())
