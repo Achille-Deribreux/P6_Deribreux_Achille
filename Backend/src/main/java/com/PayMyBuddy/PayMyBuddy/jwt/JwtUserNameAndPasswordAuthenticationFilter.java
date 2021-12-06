@@ -59,6 +59,11 @@ public class JwtUserNameAndPasswordAuthenticationFilter extends UsernamePassword
                         .signWith(Keys.hmacShaKeyFor(key.getBytes(StandardCharsets.UTF_8)))
                         .compact();
 
+        response.setHeader("Access-Control-Allow-Origin", "*");
+        response.setHeader("Access-Control-Allow-Methods", "POST, PUT, GET, OPTIONS, DELETE");
+        response.setHeader("Access-Control-Max-Age", "3600");
+        response.setHeader("Access-Control-Allow-Headers", "Authorization, x-xsrf-token, Access-Control-Allow-Headers, Origin, Accept, X-Requested-With, Content-Type, Access-Control-Request-Method, Access-Control-Request-Headers, Access-Control-Expose-Headers");
+        response.setHeader("Access-Control-Expose-Headers", "Authorization, X-WP-Total, X-WP-TotalPages");
         response.addHeader("Authorization", "Bearer "+token );
     }
 }

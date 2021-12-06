@@ -57,20 +57,20 @@ export default {
         }
         fetch("http://localhost:9090/login",{
             method: 'POST',
-            mode: 'no-cors',
             headers: { 
             'Accept': 'application/json', 
             'Content-Type': 'application/json' ,
             },
             body: JSON.stringify(data)
       })
-       .then(response => response.json())
+       //.then(response => response.json())
         .then((response) => {
           console.log("then")
+          console.log(response.headers.get("Authorization"));
           //console.log(response.headers)
-            this.$store.commit("SET_USERDATA",response);
+            //this.$store.commit("SET_USERDATA",response);
             //this.$store.commit("SET_TOKEN",response.headers);
-            this.$router.push('home');
+           // this.$router.push('home');
         })
         .catch(function() {
           console.log("catch")
