@@ -1,10 +1,10 @@
 package com.PayMyBuddy.PayMyBuddy.Controllers;
 
 import com.PayMyBuddy.PayMyBuddy.Configuration.ApplicationUserService;
-import com.PayMyBuddy.PayMyBuddy.Controller.ConnectionController;
+import com.PayMyBuddy.PayMyBuddy.Controller.BankAccountController;
 import com.PayMyBuddy.PayMyBuddy.Data.TestData;
-import com.PayMyBuddy.PayMyBuddy.Model.Specific.AddConnection;
-import com.PayMyBuddy.PayMyBuddy.Service.ConnectionService;
+import com.PayMyBuddy.PayMyBuddy.Model.BankAccount;
+import com.PayMyBuddy.PayMyBuddy.Service.BankAccountService;
 import com.PayMyBuddy.PayMyBuddy.TestConfig;
 import com.PayMyBuddy.PayMyBuddy.TestUtils;
 import org.junit.jupiter.api.BeforeEach;
@@ -24,15 +24,15 @@ import org.springframework.test.web.servlet.MockMvc;
 import java.util.Collections;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
-@WebMvcTest(ConnectionController.class)
+@WebMvcTest(BankAccountController.class)
 @Import({TestConfig.class})
-public class ConnectionControllerTest {
+public class BankAccountControllerTest {
 
     @Autowired
     MockMvc mockMvc;
 
     @MockBean
-    ConnectionService connectionService;
+    BankAccountService bankAccountService;
 
     @MockBean
     ApplicationUserService applicationUserService;
@@ -48,38 +48,27 @@ public class ConnectionControllerTest {
     }
 
     @Test
-    public void addconnectionTest() throws Exception{
+    public void addBankAccountTest() throws Exception{
         //Given
-        AddConnection addConnection = TestData.getSampleAddConnection();
+        BankAccount bankAccount = TestData.getSampleBankAccount();
         //When & Then
-        mockMvc.perform(post("/addconnection").contentType(MediaType.APPLICATION_JSON).content(TestUtils.asJsonString(addConnection))).andExpect(status().isCreated());
+        mockMvc.perform(post("/addBankAccount").contentType(MediaType.APPLICATION_JSON).content(TestUtils.asJsonString(bankAccount))).andExpect(status().isCreated());
     }
 
     @Test
-    public void getConnectionsIdByIdTest() throws Exception{
+    public void getAllBankAccountsByUserIdTest() throws Exception{
         //Given
         int id = 3;
         //When & Then
-        mockMvc.perform(get("/getconnectionsbyid").param("id", String.valueOf(id))).andExpect(status().isOk());
+        mockMvc.perform(get("/getAllBankAccountsByUserId").param("userId", String.valueOf(id))).andExpect(status().isOk());
     }
 
     @Test
-    public void getConnectionsByIdTest() throws Exception{
+    public void deleteBankAccountTest() throws Exception{
         //Given
-        int id = 3;
+        BankAccount bankAccount = TestData.getSampleBankAccount();
         //When & Then
-        mockMvc.perform(get("/getconnectionusersbyid").param("id", String.valueOf(id))).andExpect(status().isOk());
+        mockMvc.perform(delete("/deleteBankAccount").contentType(MediaType.APPLICATION_JSON).content(TestUtils.asJsonString(bankAccount))).andExpect(status().isOk());
     }
-
-    @Test
-    public void getAllNonConnectionUsersTest() throws Exception{
-        //Given
-        Integer userid = 1;
-        //When & Then
-        mockMvc.perform(get("/getAllNonConnectionUsers").param("userId", String.valueOf(userid))).andExpect(status().isOk());
-    }
-
-
-
 
 }

@@ -2,6 +2,7 @@ package com.PayMyBuddy.PayMyBuddy.Data;
 
 import com.PayMyBuddy.PayMyBuddy.Configuration.UserDetailsImpl;
 import com.PayMyBuddy.PayMyBuddy.DTO.CreditBankAccountDTO;
+import com.PayMyBuddy.PayMyBuddy.Model.BankAccount;
 import com.PayMyBuddy.PayMyBuddy.Model.Specific.AddConnection;
 import com.PayMyBuddy.PayMyBuddy.Model.Transaction;
 import com.PayMyBuddy.PayMyBuddy.Model.User;
@@ -29,5 +30,9 @@ public class TestData {
 
     public static AddConnection getSampleAddConnection(){
         return new AddConnection("a@d.be",3);
+    }
+
+    public static BankAccount getSampleBankAccount(){
+        return new BankAccount(1,356789,"DTO");
     }
 }
