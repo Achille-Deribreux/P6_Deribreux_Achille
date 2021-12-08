@@ -1,7 +1,12 @@
 package com.PayMyBuddy.PayMyBuddy.Data;
 
 import com.PayMyBuddy.PayMyBuddy.Configuration.UserDetailsImpl;
+import com.PayMyBuddy.PayMyBuddy.DTO.CreditBankAccountDTO;
+import com.PayMyBuddy.PayMyBuddy.Model.Transaction;
 import com.PayMyBuddy.PayMyBuddy.Model.User;
+
+import java.time.LocalDateTime;
+import java.util.Date;
 
 public class TestData {
 
@@ -11,5 +16,13 @@ public class TestData {
 
     public static User getSampleUser(){
         return new User(123,"Achille","Deribreux","a@d.be",100,"xxx");
+    }
+
+    public static Transaction getSampleTransaction(){
+        return new Transaction(3,4,100, null,"hello");
+    }
+
+    public static CreditBankAccountDTO getSampleCreditBankAccountDTO(){
+        return new CreditBankAccountDTO(3,100,12345678);
     }
 }

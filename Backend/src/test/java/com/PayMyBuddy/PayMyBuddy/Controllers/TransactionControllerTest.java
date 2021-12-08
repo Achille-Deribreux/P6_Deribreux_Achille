@@ -1,11 +1,13 @@
 package com.PayMyBuddy.PayMyBuddy.Controllers;
 
-
-
 import com.PayMyBuddy.PayMyBuddy.Configuration.ApplicationUserService;
+import com.PayMyBuddy.PayMyBuddy.Controller.TransactionController;
 import com.PayMyBuddy.PayMyBuddy.Controller.UserController;
+import com.PayMyBuddy.PayMyBuddy.DTO.CreditBankAccountDTO;
 import com.PayMyBuddy.PayMyBuddy.Data.TestData;
+import com.PayMyBuddy.PayMyBuddy.Model.Transaction;
 import com.PayMyBuddy.PayMyBuddy.Model.User;
+import com.PayMyBuddy.PayMyBuddy.Service.TransactionService;
 import com.PayMyBuddy.PayMyBuddy.Service.UserService;
 import com.PayMyBuddy.PayMyBuddy.TestConfig;
 import com.PayMyBuddy.PayMyBuddy.TestUtils;
@@ -33,15 +35,16 @@ import java.util.Collections;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
-@WebMvcTest(UserController.class)
+
+@WebMvcTest(TransactionController.class)
 @Import({TestConfig.class})
-public class UserControllerTest {
+public class TransactionControllerTest {
 
     @Autowired
     MockMvc mockMvc;
 
     @MockBean
-    UserService userService;
+    TransactionService transactionService;
 
     @MockBean
     ApplicationUserService applicationUserService;
@@ -55,35 +58,37 @@ public class UserControllerTest {
         securitycontext.setAuthentication(new TestingAuthenticationToken(TestData.getPrincipal(), null, Collections.emptyList()));
         SecurityContextHolder.setContext(securitycontext);
     }
-    public static String asJsonString(final Object obj) {
-        try {
-            return new ObjectMapper().writeValueAsString(obj);
-        } catch (Exception e) {
-            throw new RuntimeException(e);
-        }
+
+    @Test
+    public void getAllTransactionsTest() throws Exception{
+        //Given
+        Integer id = 1;
+        //When & Then
+        mockMvc.perform(get("/getalltransactionsbyid").param("id", String.valueOf(1))).andExpect(status().isOk());
     }
 
     @Test
-    public void getUserByIdTest() throws Exception{
+    public void addTransactionTest() throws Exception{
         //Given
-        int id = 1;
+        Transaction transactionToAdd = TestData.getSampleTransaction();
         //When & Then
-        mockMvc.perform(get("/userById").param("id", String.valueOf(id))).andExpect(status().isOk());
+        mockMvc.perform(post("/addtransaction").contentType(MediaType.APPLICATION_JSON).content(TestUtils.asJsonString(transactionToAdd))).andExpect(status().isCreated());
     }
 
     @Test
-    public void userByEmailTest() throws Exception{
+    public void addMoneyFromAccountTest() throws Exception{
         //Given
-        String email = "a@d.be";
+        CreditBankAccountDTO creditBankAccountDTO = TestData.getSampleCreditBankAccountDTO();
         //When & Then
-        mockMvc.perform(get("/userByEmail").param("email", email)).andExpect(status().isOk());
+        mockMvc.perform(post("/addMoneyFromAccount").contentType(MediaType.APPLICATION_JSON).content(TestUtils.asJsonString(creditBankAccountDTO))).andExpect(status().isCreated());
     }
 
     @Test
-    public void addUserTest() throws Exception{
+    public void sendMoneyToAccountTest() throws Exception{
         //Given
-        User userToAdd = TestData.getSampleUser();
+        CreditBankAccountDTO creditBankAccountDTO = TestData.getSampleCreditBankAccountDTO();
         //When & Then
-        mockMvc.perform(post("/signup").contentType(MediaType.APPLICATION_JSON).content(TestUtils.asJsonString(userToAdd))).andExpect(status().isCreated());
+        mockMvc.perform(post("/sendMoneyToAccount").contentType(MediaType.APPLICATION_JSON).content(TestUtils.asJsonString(creditBankAccountDTO))).andExpect(status().isCreated());
     }
+
 }
