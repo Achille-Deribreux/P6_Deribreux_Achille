@@ -45,14 +45,6 @@ public class UserService {
         return allUsers;
     }
 
-    public UserDTO checkLogin(User user){
-        return convertToDto(
-                getAllUsers().stream()
-                        .filter(u -> u.getEmail().equals(user.getEmail())&&u.getPassword().equals(user.getPassword()))
-                        .findAny().orElseThrow(()-> new IncorrectLoginException(""))
-        );
-    }
-
     public User getUserById(Integer userId){
         return userDAO.findById(userId).orElseThrow(()->new UserNotFoundException("For id " + userId));
     }

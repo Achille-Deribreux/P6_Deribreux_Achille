@@ -4,6 +4,11 @@ public class AddConnection {
     String friendemail;
     int userid;
 
+    public AddConnection(String friendemail, int userid) {
+        this.friendemail = friendemail;
+        this.userid = userid;
+    }
+
     public String getFriendemail() {
         return friendemail;
     }

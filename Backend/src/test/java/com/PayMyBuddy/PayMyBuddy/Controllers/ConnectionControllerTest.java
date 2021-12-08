@@ -1,10 +1,14 @@
 package com.PayMyBuddy.PayMyBuddy.Controllers;
 
 import com.PayMyBuddy.PayMyBuddy.Configuration.ApplicationUserService;
+import com.PayMyBuddy.PayMyBuddy.Controller.ConnectionController;
 import com.PayMyBuddy.PayMyBuddy.Controller.TransactionController;
 import com.PayMyBuddy.PayMyBuddy.DTO.CreditBankAccountDTO;
 import com.PayMyBuddy.PayMyBuddy.Data.TestData;
+import com.PayMyBuddy.PayMyBuddy.Model.Specific.AddConnection;
 import com.PayMyBuddy.PayMyBuddy.Model.Transaction;
+import com.PayMyBuddy.PayMyBuddy.Model.User;
+import com.PayMyBuddy.PayMyBuddy.Service.ConnectionService;
 import com.PayMyBuddy.PayMyBuddy.Service.TransactionService;
 import com.PayMyBuddy.PayMyBuddy.TestConfig;
 import com.PayMyBuddy.PayMyBuddy.TestUtils;
@@ -25,16 +29,15 @@ import org.springframework.test.web.servlet.MockMvc;
 import java.util.Collections;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
-
-@WebMvcTest(TransactionController.class)
+@WebMvcTest(ConnectionController.class)
 @Import({TestConfig.class})
-public class TransactionControllerTest {
+public class ConnectionControllerTest {
 
     @Autowired
     MockMvc mockMvc;
 
     @MockBean
-    TransactionService transactionService;
+    ConnectionService connectionService;
 
     @MockBean
     ApplicationUserService applicationUserService;
@@ -50,35 +53,38 @@ public class TransactionControllerTest {
     }
 
     @Test
-    public void getAllTransactionsTest() throws Exception{
+    public void addconnectionTest() throws Exception{
         //Given
-        Integer id = 1;
+        AddConnection addConnection = TestData.getSampleAddConnection();
         //When & Then
-        mockMvc.perform(get("/getalltransactionsbyid").param("id", String.valueOf(1))).andExpect(status().isOk());
+        mockMvc.perform(post("/addconnection").contentType(MediaType.APPLICATION_JSON).content(TestUtils.asJsonString(addConnection))).andExpect(status().isCreated());
     }
 
     @Test
-    public void addTransactionTest() throws Exception{
+    public void getConnectionsIdByIdTest() throws Exception{
         //Given
-        Transaction transactionToAdd = TestData.getSampleTransaction();
+        int id = 3;
         //When & Then
-        mockMvc.perform(post("/addtransaction").contentType(MediaType.APPLICATION_JSON).content(TestUtils.asJsonString(transactionToAdd))).andExpect(status().isCreated());
+        mockMvc.perform(get("/getconnectionsbyid").param("id", String.valueOf(id))).andExpect(status().isOk());
     }
 
     @Test
-    public void addMoneyFromAccountTest() throws Exception{
+    public void getConnectionsByIdTest() throws Exception{
         //Given
-        CreditBankAccountDTO creditBankAccountDTO = TestData.getSampleCreditBankAccountDTO();
+        int id = 3;
         //When & Then
-        mockMvc.perform(post("/addMoneyFromAccount").contentType(MediaType.APPLICATION_JSON).content(TestUtils.asJsonString(creditBankAccountDTO))).andExpect(status().isCreated());
+        mockMvc.perform(get("/getconnectionusersbyid").param("id", String.valueOf(id))).andExpect(status().isOk());
     }
 
     @Test
-    public void sendMoneyToAccountTest() throws Exception{
+    public void getAllNonConnectionUsersTest() throws Exception{
         //Given
-        CreditBankAccountDTO creditBankAccountDTO = TestData.getSampleCreditBankAccountDTO();
+        Integer userid = 1;
         //When & Then
-        mockMvc.perform(post("/sendMoneyToAccount").contentType(MediaType.APPLICATION_JSON).content(TestUtils.asJsonString(creditBankAccountDTO))).andExpect(status().isCreated());
+        mockMvc.perform(get("/getAllNonConnectionUsers").param("userId", String.valueOf(userid))).andExpect(status().isOk());
     }
+
+
+
 
 }
