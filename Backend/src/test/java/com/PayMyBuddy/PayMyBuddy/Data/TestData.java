@@ -1,6 +1,7 @@
 package com.PayMyBuddy.PayMyBuddy.Data;
 
 import com.PayMyBuddy.PayMyBuddy.Configuration.UserDetailsImpl;
+import com.PayMyBuddy.PayMyBuddy.DTO.BankAccountDTO;
 import com.PayMyBuddy.PayMyBuddy.DTO.CreditBankAccountDTO;
 import com.PayMyBuddy.PayMyBuddy.Model.BankAccount;
 import com.PayMyBuddy.PayMyBuddy.Model.Specific.AddConnection;
@@ -8,7 +9,7 @@ import com.PayMyBuddy.PayMyBuddy.Model.Transaction;
 import com.PayMyBuddy.PayMyBuddy.Model.User;
 
 import java.time.LocalDateTime;
-import java.util.Date;
+import java.util.*;
 
 public class TestData {
 
@@ -33,6 +34,26 @@ public class TestData {
     }
 
     public static BankAccount getSampleBankAccount(){
-        return new BankAccount(1,356789,"DTO");
+        return new BankAccount(1,123456789,"CBC");
+    }
+
+    public static Optional<BankAccount> getSampleOptionnalBankAccount(){
+        return Optional.of(new BankAccount(1,123456789,"CBC"));
+    }
+
+    public static List<BankAccountDTO> getSampleBankAccountDTOList(){
+        return new ArrayList<>(Arrays.asList(
+                new BankAccountDTO(1,123,"CBC"),
+                new BankAccountDTO(1,12345,"CBC"),
+                new BankAccountDTO(1,12346,"CBC")
+        ));
+    }
+
+    public static List<BankAccount> getSampleBankAccountList() {
+        return new ArrayList<>(Arrays.asList(
+                new BankAccount(1, 123, "CBC"),
+                new BankAccount(1, 12345, "CBC"),
+                new BankAccount(1, 12346, "CBC")
+        ));
     }
 }
