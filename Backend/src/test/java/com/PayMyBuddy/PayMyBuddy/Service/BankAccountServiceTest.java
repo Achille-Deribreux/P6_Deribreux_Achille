@@ -4,6 +4,8 @@ import com.PayMyBuddy.PayMyBuddy.Configuration.ApplicationUserService;
 import com.PayMyBuddy.PayMyBuddy.Controller.BankAccountController;
 import com.PayMyBuddy.PayMyBuddy.DTO.BankAccountDTO;
 import com.PayMyBuddy.PayMyBuddy.Data.TestData;
+import com.PayMyBuddy.PayMyBuddy.Exceptions.CustomExceptions.BankAccountNotFoundException;
+import com.PayMyBuddy.PayMyBuddy.Exceptions.CustomExceptions.UserNotFoundException;
 import com.PayMyBuddy.PayMyBuddy.Model.BankAccount;
 import com.PayMyBuddy.PayMyBuddy.Repository.BankAccountDAO;
 import com.PayMyBuddy.PayMyBuddy.TestConfig;
@@ -27,6 +29,7 @@ import java.util.Collections;
 import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.mockito.Mockito.verify;
 
 @SpringBootTest
@@ -54,7 +57,14 @@ public class BankAccountServiceTest {
         result = bankAccountService.getBankAccountIdByNumber(bankAccount);
         //Then
         assertEquals(expected, result);
+    }
 
+    @Test
+    void getBankAccountIdByNumberExceptionTest() {
+        //Given
+        BankAccount bankAccount = TestData.getSampleBankAccount();
+        //When & Then
+        assertThrows(BankAccountNotFoundException.class, () -> bankAccountService.getBankAccountIdByNumber(bankAccount));
     }
 
     @Test

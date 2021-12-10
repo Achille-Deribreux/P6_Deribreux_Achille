@@ -24,7 +24,7 @@ public class BankAccountService {
         this.bankAccountDAO = bankAccountDAO;
     }
 
-    //TODO : TEST EXCEPTION
+
     public Integer getBankAccountIdByNumber(BankAccount bankAccount){
         BankAccount b = bankAccountDAO.findByAccountNumber(bankAccount.getAccountNumber()).orElseThrow(()-> new BankAccountNotFoundException("for number "+bankAccount.getAccountNumber()));
         return b.getId();
@@ -39,6 +39,7 @@ public class BankAccountService {
     }
 
     public BankAccount addBankAccount(BankAccount bankAccountToAdd){
+        //TODO : ALREADY EXISTS ? + TEST
         return bankAccountDAO.save(bankAccountToAdd);
     }
 
