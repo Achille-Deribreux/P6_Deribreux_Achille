@@ -21,6 +21,14 @@ public class ConnectionService {
     @Autowired
     ConnectionDAO connectionDAO;
 
+    public void setUserService(UserService userService) {
+        this.userService = userService;
+    }
+
+    public void setConnectionDAO(ConnectionDAO connectionDAO) {
+        this.connectionDAO = connectionDAO;
+    }
+
     public List<Integer> findConnectionsIdById(Integer userid){
         List<Integer>connectionIdList = new ArrayList<>();
         for(Connection connection : connectionDAO.findAllByuserid(userid)){

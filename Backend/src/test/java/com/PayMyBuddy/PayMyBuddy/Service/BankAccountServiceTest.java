@@ -35,20 +35,11 @@ public class BankAccountServiceTest {
     @MockBean
     BankAccountDAO bankAccountDAO;
 
-    @MockBean
-    ApplicationUserService applicationUserService;
-
-    @MockBean
-    AuthenticationManager authenticationManager;
-
     @Autowired
     BankAccountService bankAccountService;
 
     @BeforeEach
     void setup(){
-        SecurityContext securitycontext = new SecurityContextImpl();
-        securitycontext.setAuthentication(new TestingAuthenticationToken(TestData.getPrincipal(), null, Collections.emptyList()));
-        SecurityContextHolder.setContext(securitycontext);
         bankAccountService.setBankAccountDAO(bankAccountDAO);
     }
 
@@ -93,6 +84,7 @@ public class BankAccountServiceTest {
     public void deleteBankAccountTest(){
         BankAccount bankAccount = TestData.getSampleBankAccount();
         //When
+        Mockito.when(bankAccountDAO.findByAccountNumber(bankAccount.getAccountNumber())).thenReturn(TestData.getSampleOptionnalBankAccount());
         bankAccountService.deleteBankAccount(bankAccount);
         //Then
         verify(bankAccountDAO,Mockito.times(1)).delete(bankAccount);
