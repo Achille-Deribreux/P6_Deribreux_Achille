@@ -3,6 +3,7 @@ package com.PayMyBuddy.PayMyBuddy.Data;
 import com.PayMyBuddy.PayMyBuddy.Configuration.UserDetailsImpl;
 import com.PayMyBuddy.PayMyBuddy.DTO.BankAccountDTO;
 import com.PayMyBuddy.PayMyBuddy.DTO.CreditBankAccountDTO;
+import com.PayMyBuddy.PayMyBuddy.DTO.TransactionDTO;
 import com.PayMyBuddy.PayMyBuddy.DTO.UserDTO;
 import com.PayMyBuddy.PayMyBuddy.Model.BankAccount;
 import com.PayMyBuddy.PayMyBuddy.Model.Connection;
@@ -10,6 +11,7 @@ import com.PayMyBuddy.PayMyBuddy.Model.Specific.AddConnection;
 import com.PayMyBuddy.PayMyBuddy.Model.Transaction;
 import com.PayMyBuddy.PayMyBuddy.Model.User;
 
+import java.time.LocalDateTime;
 import java.util.*;
 
 public class TestData {
@@ -134,6 +136,21 @@ public class TestData {
                 new UserDTO(3,"B","B","B",100),
                 new UserDTO(4,"C","C","C",100),
                 new UserDTO(5,"D","D","D",100)
+        ));
+    }
+
+    //Transactions
+    public static Iterable<Transaction> getSampleForfindBySenderId(){
+        return Collections.singleton(new Transaction(1,2,1000, LocalDateTime.now(),"hl"));
+    }
+    public static Iterable<Transaction> getSampleForfindByReceiverId(){
+        return Collections.singleton(new Transaction(2,1,500, LocalDateTime.now(),"hl"));
+    }
+
+    public static List<TransactionDTO> getSampleForTransactionDTO(){
+        return new ArrayList<>(Arrays.asList(
+                new TransactionDTO("X X","+500€","hl",LocalDateTime.now()),
+                new TransactionDTO("X X","-1000€","hl",LocalDateTime.now())
         ));
     }
 }
