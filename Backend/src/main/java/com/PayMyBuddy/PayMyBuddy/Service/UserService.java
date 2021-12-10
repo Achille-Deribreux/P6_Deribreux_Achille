@@ -29,6 +29,10 @@ public class UserService {
     @Autowired
     private PasswordEncoder passwordEncoder;
 
+    public void setUserDAO(UserDAO userDAO) {
+        this.userDAO = userDAO;
+    }
+
     public void addMoneyToBalance(Integer userId, Integer moneyToAdd){
         User user = getUserById(userId);
         user.setBalance(user.getBalance() + moneyToAdd);
@@ -61,10 +65,6 @@ public class UserService {
     public User addUser (User userToAdd){
         userToAdd.setPassword(passwordEncoder.encode(userToAdd.getPassword()));
         return userDAO.save(userToAdd);
-    }
-
-    public void deleteUserById (Integer userId){
-        userDAO.deleteById(userId);
     }
 
     public UserDTO convertToDto(User user){

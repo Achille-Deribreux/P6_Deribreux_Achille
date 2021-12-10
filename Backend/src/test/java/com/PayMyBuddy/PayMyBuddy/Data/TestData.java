@@ -10,7 +10,6 @@ import com.PayMyBuddy.PayMyBuddy.Model.Specific.AddConnection;
 import com.PayMyBuddy.PayMyBuddy.Model.Transaction;
 import com.PayMyBuddy.PayMyBuddy.Model.User;
 
-import java.time.LocalDateTime;
 import java.util.*;
 
 public class TestData {
@@ -21,6 +20,10 @@ public class TestData {
 
     public static User getSampleUser(){
         return new User(123,"Achille","Deribreux","a@d.be",100,"xxx");
+    }
+
+    public static UserDTO getSampleUserDTO(){
+        return new UserDTO(123,"Achille","Deribreux","a@d.be",100);
     }
 
     public static Transaction getSampleTransaction(){
@@ -105,6 +108,32 @@ public class TestData {
     public static List<User> getNonConnectionUserOutDTO(){
         return new ArrayList<>(Arrays.asList(
                 new User(5,"D","D","D",100,"mdp")
+        ));
+    }
+
+    public static Iterable<User> getAllUsersIterable() {
+        return Collections.singleton(new User(5, "D", "D", "D", 100, "mdp"));
+    }
+
+    public static List<User> getAllUsersList() {
+        return new ArrayList<>(Arrays.asList(new User(5, "D", "D", "D", 100, "mdp")));
+    }
+
+    public static List<User> getSampleUserList(){
+        return new ArrayList<>(Arrays.asList(
+                new User(2,"A","A","A",100,"mdp"),
+                new User(3,"B","B","B",100,"mdp"),
+                new User(4,"C","C","C",100,"mdp"),
+                new User(5,"D","D","D",100,"mdp")
+        ));
+    }
+
+    public static List<UserDTO> getSampleUserDTOList(){
+        return new ArrayList<>(Arrays.asList(
+                new UserDTO(2,"A","A","A",100),
+                new UserDTO(3,"B","B","B",100),
+                new UserDTO(4,"C","C","C",100),
+                new UserDTO(5,"D","D","D",100)
         ));
     }
 }
