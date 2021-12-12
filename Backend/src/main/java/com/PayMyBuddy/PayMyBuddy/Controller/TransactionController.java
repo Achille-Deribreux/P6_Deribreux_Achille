@@ -2,7 +2,6 @@ package com.PayMyBuddy.PayMyBuddy.Controller;
 
 import com.PayMyBuddy.PayMyBuddy.DTO.CreditBankAccountDTO;
 import com.PayMyBuddy.PayMyBuddy.DTO.TransactionDTO;
-import com.PayMyBuddy.PayMyBuddy.Model.Specific.AddTransaction;
 import com.PayMyBuddy.PayMyBuddy.Model.Transaction;
 import com.PayMyBuddy.PayMyBuddy.Service.TransactionService;
 import org.springframework.beans.factory.annotation.Autowired;
