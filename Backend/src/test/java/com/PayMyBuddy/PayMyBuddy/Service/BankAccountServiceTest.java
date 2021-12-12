@@ -86,14 +86,4 @@ public class BankAccountServiceTest {
         //Then
         verify(bankAccountDAO,Mockito.times(1)).delete(bankAccount);
     }
-
-    @Disabled
-    @Test
-    public void convertToDtoTest(){
-        //Given
-        BankAccount bankAccount = TestData.getSampleBankAccount();
-        //When
-
-        //Then
-    }
 }
