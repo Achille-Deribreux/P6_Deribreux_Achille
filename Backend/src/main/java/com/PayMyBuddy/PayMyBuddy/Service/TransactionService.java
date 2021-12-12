@@ -67,18 +67,12 @@ public class TransactionService {
         return transactionDAO.findByReceiverId(receiverId);
     }
 
-    public Transaction addTransaction(AddTransaction addTransaction){
-        userService.checkUserBalance(addTransaction.getUserId(),addTransaction.getAmount());
-        userService.withdrawMoneyFromBalance(addTransaction.getUserId(), addTransaction.getAmount());
+    public Transaction addTransaction(Transaction addTransaction){
+        userService.checkUserBalance(addTransaction.getSenderId(),addTransaction.getAmount());
+        userService.withdrawMoneyFromBalance(addTransaction.getSenderId(), addTransaction.getAmount());
         userService.addMoneyToBalance(addTransaction.getReceiverId(),addTransaction.getAmount());
-        return transactionDAO.save(
-                new Transaction(
-                        addTransaction.getUserId(),
-                        addTransaction.getReceiverId(),
-                        addTransaction.getAmount(),
-                        LocalDateTime.now(),
-                        addTransaction.getDescription()
-                ));
+        addTransaction.setDatestamp(LocalDateTime.now());
+        return transactionDAO.save(addTransaction);
     }
 
     public Transaction addCreditBankAccount(CreditBankAccountDTO creditBankAccountDTO){

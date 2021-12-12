@@ -88,17 +88,17 @@ public class TransactionServiceTest {
         //Given
         Integer senderId = 1;
         Integer receiverId = 2;
-        AddTransaction transaction = new AddTransaction(senderId,receiverId,100,"hl");
+        Transaction transaction = new Transaction(senderId,receiverId,100,null,"hl");
         //When
         transactionService.addTransaction(transaction);
         //Then
 
-        verify(userService,Mockito.times(1)).checkUserBalance(transaction.getUserId(),transaction.getAmount());
-        verify(userService,Mockito.times(1)).withdrawMoneyFromBalance(transaction.getUserId(), transaction.getAmount());
+        verify(userService,Mockito.times(1)).checkUserBalance(transaction.getSenderId(),transaction.getAmount());
+        verify(userService,Mockito.times(1)).withdrawMoneyFromBalance(transaction.getSenderId(), transaction.getAmount());
         verify(userService,Mockito.times(1)).addMoneyToBalance(transaction.getReceiverId(),transaction.getAmount());
 
         verify(transactionDAO,Mockito.times(1)).save(new Transaction(
-                transaction.getUserId(),
+                transaction.getSenderId(),
                 transaction.getReceiverId(),
                 transaction.getAmount(),
                 LocalDateTime.now(),
