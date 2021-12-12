@@ -1,6 +1,5 @@
 package com.PayMyBuddy.PayMyBuddy.Controller;
 
-import com.PayMyBuddy.PayMyBuddy.DTO.BankAccountDTO;
 import com.PayMyBuddy.PayMyBuddy.Model.BankAccount;
 import com.PayMyBuddy.PayMyBuddy.Service.BankAccountService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -28,7 +27,7 @@ public class BankAccountController {
     }
 
     @GetMapping(value="/getAllBankAccountsByUserId")
-    public ResponseEntity<List<BankAccountDTO>>getAllBankAccountsByUserId(@RequestParam(value="userId") Integer userId){
+    public ResponseEntity<List<BankAccount>>getAllBankAccountsByUserId(@RequestParam(value="userId") Integer userId){
         return new ResponseEntity<>(bankAccountService.getBankAccountsByUserId(userId), HttpStatus.OK);
         //TODO : add vérifications not null http 204
     }

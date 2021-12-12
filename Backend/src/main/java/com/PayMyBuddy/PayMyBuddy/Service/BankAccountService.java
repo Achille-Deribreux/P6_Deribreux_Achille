@@ -1,6 +1,5 @@
 package com.PayMyBuddy.PayMyBuddy.Service;
 
-import com.PayMyBuddy.PayMyBuddy.DTO.BankAccountDTO;
 import com.PayMyBuddy.PayMyBuddy.Exceptions.CustomExceptions.BankAccountNotFoundException;
 import com.PayMyBuddy.PayMyBuddy.Model.BankAccount;
 import com.PayMyBuddy.PayMyBuddy.Repository.BankAccountDAO;
@@ -30,10 +29,10 @@ public class BankAccountService {
         return b.getId();
     }
 
-    public List<BankAccountDTO> getBankAccountsByUserId(Integer userId){
-        List<BankAccountDTO> accountList = new ArrayList<>();
+    public List<BankAccount> getBankAccountsByUserId(Integer userId){
+        List<BankAccount> accountList = new ArrayList<>();
         for(BankAccount bankAccount : bankAccountDAO.findByUserId(userId)){
-            accountList.add(convertToDto(bankAccount));
+            accountList.add(bankAccount);
         }
         return accountList;
     }
@@ -46,11 +45,6 @@ public class BankAccountService {
     public void deleteBankAccount(BankAccount bankAccountToDelete){
         bankAccountToDelete.setId(getBankAccountIdByNumber(bankAccountToDelete));
         bankAccountDAO.delete(bankAccountToDelete);
-    }
-
-    //TODO : DELETE DTO BC USELESS
-    public BankAccountDTO convertToDto(BankAccount bankAccount){
-        return modelMapper.map(bankAccount,BankAccountDTO.class);
     }
 }
 

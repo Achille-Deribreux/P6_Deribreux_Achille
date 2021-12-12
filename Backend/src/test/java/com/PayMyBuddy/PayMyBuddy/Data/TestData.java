@@ -1,7 +1,6 @@
 package com.PayMyBuddy.PayMyBuddy.Data;
 
 import com.PayMyBuddy.PayMyBuddy.Configuration.UserDetailsImpl;
-import com.PayMyBuddy.PayMyBuddy.DTO.BankAccountDTO;
 import com.PayMyBuddy.PayMyBuddy.DTO.CreditBankAccountDTO;
 import com.PayMyBuddy.PayMyBuddy.DTO.TransactionDTO;
 import com.PayMyBuddy.PayMyBuddy.DTO.UserDTO;
@@ -46,14 +45,6 @@ public class TestData {
 
     public static Optional<BankAccount> getSampleOptionnalBankAccount(){
         return Optional.of(new BankAccount(1,123456789,"CBC"));
-    }
-
-    public static List<BankAccountDTO> getSampleBankAccountDTOList(){
-        return new ArrayList<>(Arrays.asList(
-                new BankAccountDTO(1,123,"CBC"),
-                new BankAccountDTO(1,12345,"CBC"),
-                new BankAccountDTO(1,12346,"CBC")
-        ));
     }
 
     public static List<BankAccount> getSampleBankAccountList() {

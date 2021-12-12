@@ -1,11 +1,7 @@
 package com.PayMyBuddy.PayMyBuddy.Service;
 
-import com.PayMyBuddy.PayMyBuddy.Configuration.ApplicationUserService;
-import com.PayMyBuddy.PayMyBuddy.Controller.BankAccountController;
-import com.PayMyBuddy.PayMyBuddy.DTO.BankAccountDTO;
 import com.PayMyBuddy.PayMyBuddy.Data.TestData;
 import com.PayMyBuddy.PayMyBuddy.Exceptions.CustomExceptions.BankAccountNotFoundException;
-import com.PayMyBuddy.PayMyBuddy.Exceptions.CustomExceptions.UserNotFoundException;
 import com.PayMyBuddy.PayMyBuddy.Model.BankAccount;
 import com.PayMyBuddy.PayMyBuddy.Repository.BankAccountDAO;
 import com.PayMyBuddy.PayMyBuddy.TestConfig;
@@ -14,18 +10,9 @@ import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
 import org.mockito.Mockito;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.context.annotation.Import;
-import org.springframework.security.authentication.AuthenticationManager;
-import org.springframework.security.authentication.TestingAuthenticationToken;
-import org.springframework.security.core.context.SecurityContext;
-import org.springframework.security.core.context.SecurityContextHolder;
-import org.springframework.security.core.context.SecurityContextImpl;
-import org.springframework.test.web.servlet.MockMvc;
-
-import java.util.Collections;
 import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
@@ -71,8 +58,8 @@ public class BankAccountServiceTest {
     public void getBankAccountsByUserIdTest(){
         //Given
         Integer userId = 1;
-        List<BankAccountDTO> expected = TestData.getSampleBankAccountDTOList();
-        List<BankAccountDTO> result;
+        List<BankAccount> expected = TestData.getSampleBankAccountList();
+        List<BankAccount> result;
         //When
         Mockito.when(bankAccountDAO.findByUserId(userId)).thenReturn(TestData.getSampleBankAccountList());
         result = bankAccountService.getBankAccountsByUserId(userId);
