@@ -18,7 +18,12 @@ public class BankAccountController {
 
     @PostMapping(value="/addBankAccount")
     public ResponseEntity<BankAccount>addBankAccount(@RequestBody BankAccount bankAccount){
-        return new ResponseEntity<>(bankAccountService.addBankAccount(bankAccount), HttpStatus.CREATED);
+        if(bankAccount.getAccountNumber() == 0 || bankAccount.getBank() == null || bankAccount.getUserId() == 0 ){
+            return new ResponseEntity<>(null,HttpStatus.NO_CONTENT);
+        }
+        else {
+            return new ResponseEntity<>(bankAccountService.addBankAccount(bankAccount), HttpStatus.CREATED);
+        }
         //TODO: Check les autres Post car pq utiliser les modèles adds ??
     }
 
@@ -30,7 +35,12 @@ public class BankAccountController {
 
     @DeleteMapping(value="/deleteBankAccount")
     public ResponseEntity<String> deleteBankAccount(@RequestBody BankAccount bankAccount){
-        bankAccountService.deleteBankAccount(bankAccount);
-        return new ResponseEntity<>("successfully deleted",HttpStatus.OK);
+        if(bankAccount.getAccountNumber() == 0){
+            return new ResponseEntity<>(null,HttpStatus.NO_CONTENT);
+        }
+        else {
+            bankAccountService.deleteBankAccount(bankAccount);
+            return new ResponseEntity<>("successfully deleted", HttpStatus.OK);
+        }
     }
 }

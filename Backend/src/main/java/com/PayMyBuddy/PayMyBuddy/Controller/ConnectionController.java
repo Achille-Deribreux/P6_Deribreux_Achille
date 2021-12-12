@@ -20,8 +20,13 @@ public class ConnectionController {
 
     @PostMapping(value="/addconnection")
     public ResponseEntity<Connection> addConnection(@RequestBody AddConnection addConnection){
-        Connection connectionToReturn = connectionService.addConnection(addConnection);
-        return new ResponseEntity<>(connectionToReturn, HttpStatus.CREATED);
+        if(addConnection.getUserid() == 0 || addConnection.getFriendemail() == null){
+            return new ResponseEntity<>(null,HttpStatus.NO_CONTENT);
+        }
+        else {
+            Connection connectionToReturn = connectionService.addConnection(addConnection);
+            return new ResponseEntity<>(connectionToReturn, HttpStatus.CREATED);
+        }
     }
 
     @GetMapping(value = "/getconnectionsbyid")
