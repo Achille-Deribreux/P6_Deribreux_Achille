@@ -69,7 +69,7 @@ export default {
           this.$store.commit("SET_TOKEN",response.headers.get("Authorization"));
           localStorage.setItem('token', response.headers.get("Authorization"));
           this.$store.commit("GET_USERINFO");
-          setTimeout( () => this.$router.push('home'), 1000)
+          setTimeout(() => this.$router.push('home'), 1000)
         })
         .catch(function() {
           console.log("catch")

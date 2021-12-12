@@ -42,7 +42,6 @@ export default new Vuex.Store({
       })
        .then(response => response.json())
         .then((response) => {
-          console.log(response);
           this.commit("SET_BALANCE",response.balance);
         })
         .catch(function(error) {

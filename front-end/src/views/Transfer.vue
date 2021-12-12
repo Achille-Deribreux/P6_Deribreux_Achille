@@ -42,7 +42,7 @@ name: 'Transfer',
       form:{
         amount : 0,
         receiverId : null,
-        userId : this.$store.state.userdata.userid,
+        senderId : this.$store.state.userdata.userid,
         description : ""
       },
       friends:[]
@@ -73,12 +73,7 @@ name: 'Transfer',
             console.log(response)
         })
         .catch(function(error) {
-             this.$bvToast.toast('Impossible to transfer money', {
-              title: "Error",
-              variant: "danger",
-              solid: true
-        });
-            alert('Il y a eu un problème avec l\'opération fetch: ' + error.message);
+          console.log('error', error)
           });
       }},
      mounted(){

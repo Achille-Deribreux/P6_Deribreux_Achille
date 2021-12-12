@@ -26,6 +26,9 @@ public class BankAccount {
         this.bank = bank;
     }
 
+    public BankAccount() {
+    }
+
     public int getId() {
         return id;
     }
