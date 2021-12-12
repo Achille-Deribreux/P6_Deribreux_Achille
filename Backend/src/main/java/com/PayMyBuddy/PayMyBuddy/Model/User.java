@@ -1,6 +1,7 @@
 package com.PayMyBuddy.PayMyBuddy.Model;
 
 import javax.persistence.*;
+import java.util.Objects;
 
 @Entity
 @Table(name="users")
@@ -24,6 +25,15 @@ public class User {
 
     @Column(name = "password")
     private String password;
+
+    public User(int id, String firstName, String lastName, String email, int balance, String password) {
+        this.id = id;
+        this.firstName = firstName;
+        this.lastName = lastName;
+        this.email = email;
+        this.balance = balance;
+        this.password = password;
+    }
 
     public int getId() {
         return id;
@@ -71,6 +81,20 @@ public class User {
 
     public void setPassword(String password) {
         this.password = password;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        User user = (User) o;
+        return id == user.id && balance == user.balance && Objects.equals(firstName, user.firstName) && Objects.equals(lastName, user.lastName) && Objects.equals(email, user.email) && Objects.equals(password, user.password);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(id, firstName, lastName, email, balance, password);
     }
 }
 

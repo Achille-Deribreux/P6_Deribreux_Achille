@@ -1,6 +1,9 @@
 package com.PayMyBuddy.PayMyBuddy.DTO;
 
+import com.PayMyBuddy.PayMyBuddy.Utils.Formatter;
+
 import java.time.LocalDateTime;
+import java.util.Objects;
 
 public class TransactionDTO {
     private String connection;
@@ -45,6 +48,19 @@ public class TransactionDTO {
 
     public void setDatestamp(LocalDateTime datestamp) {
         this.datestamp = datestamp;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        TransactionDTO that = (TransactionDTO) o;
+        return Objects.equals(connection, that.connection) && Objects.equals(amount, that.amount) && Objects.equals(description, that.description) && Objects.equals(Formatter.convertDate(datestamp), Formatter.convertDate(that.datestamp));
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(connection, amount, description, datestamp);
     }
 }
 

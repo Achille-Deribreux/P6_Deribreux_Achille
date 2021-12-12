@@ -29,6 +29,10 @@ public class UserService {
     @Autowired
     private PasswordEncoder passwordEncoder;
 
+    public void setUserDAO(UserDAO userDAO) {
+        this.userDAO = userDAO;
+    }
+
     public void addMoneyToBalance(Integer userId, Integer moneyToAdd){
         User user = getUserById(userId);
         user.setBalance(user.getBalance() + moneyToAdd);
@@ -43,14 +47,6 @@ public class UserService {
         List<User> allUsers = new ArrayList<>();
         userDAO.findAll().forEach(allUsers::add);
         return allUsers;
-    }
-
-    public UserDTO checkLogin(User user){
-        return convertToDto(
-                getAllUsers().stream()
-                        .filter(u -> u.getEmail().equals(user.getEmail())&&u.getPassword().equals(user.getPassword()))
-                        .findAny().orElseThrow(()-> new IncorrectLoginException(""))
-        );
     }
 
     public User getUserById(Integer userId){
@@ -69,10 +65,6 @@ public class UserService {
     public User addUser (User userToAdd){
         userToAdd.setPassword(passwordEncoder.encode(userToAdd.getPassword()));
         return userDAO.save(userToAdd);
-    }
-
-    public void deleteUserById (Integer userId){
-        userDAO.deleteById(userId);
     }
 
     public UserDTO convertToDto(User user){

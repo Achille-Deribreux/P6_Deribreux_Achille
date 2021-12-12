@@ -6,6 +6,13 @@ public class AddTransaction {
     int amount;
     String description;
 
+    public AddTransaction(int userId, int receiverId, int amount, String description) {
+        this.userId = userId;
+        this.receiverId = receiverId;
+        this.amount = amount;
+        this.description = description;
+    }
+
     public int getUserId() {
         return userId;
     }

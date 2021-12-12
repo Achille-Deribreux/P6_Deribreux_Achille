@@ -20,13 +20,10 @@ public class BankAccountService {
     @Autowired
     private ModelMapper modelMapper;
 
-    public Iterable<BankAccount> getAllBankAccounts(){
-        return bankAccountDAO.findAll();
+    public void setBankAccountDAO(BankAccountDAO bankAccountDAO) {
+        this.bankAccountDAO = bankAccountDAO;
     }
 
-    public BankAccount getBankAccountById(Integer id){
-        return bankAccountDAO.findById(id).orElseThrow(()-> new BankAccountNotFoundException("for id "+id));
-    }
 
     public Integer getBankAccountIdByNumber(BankAccount bankAccount){
         BankAccount b = bankAccountDAO.findByAccountNumber(bankAccount.getAccountNumber()).orElseThrow(()-> new BankAccountNotFoundException("for number "+bankAccount.getAccountNumber()));
@@ -42,6 +39,7 @@ public class BankAccountService {
     }
 
     public BankAccount addBankAccount(BankAccount bankAccountToAdd){
+        //TODO : ALREADY EXISTS ? + TEST
         return bankAccountDAO.save(bankAccountToAdd);
     }
 
@@ -50,10 +48,7 @@ public class BankAccountService {
         bankAccountDAO.delete(bankAccountToDelete);
     }
 
-    public void deleteBankAccountById(Integer bankAccountId){
-        bankAccountDAO.deleteById(bankAccountId);
-    }
-
+    //TODO : DELETE DTO BC USELESS
     public BankAccountDTO convertToDto(BankAccount bankAccount){
         return modelMapper.map(bankAccount,BankAccountDTO.class);
     }

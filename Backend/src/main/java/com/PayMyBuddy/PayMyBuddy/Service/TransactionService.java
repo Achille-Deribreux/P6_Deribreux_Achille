@@ -22,13 +22,13 @@ public class TransactionService {
     @Autowired
     UserService userService;
 
-    /*public Iterable<Transaction> getAllTransactions(){
-        return transactionDAO.findAll();
+    public void setTransactionDAO(TransactionDAO transactionDAO) {
+        this.transactionDAO = transactionDAO;
     }
 
-    public Optional<Transaction> getTransactionById(Integer transactionId){
-        return transactionDAO.findById(transactionId);
-    }*/
+    public void setUserService(UserService userService) {
+        this.userService = userService;
+    }
 
     public List<TransactionDTO> getAllTransactionById(Integer userId){
         if(userId == 0){
