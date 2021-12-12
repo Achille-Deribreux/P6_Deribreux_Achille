@@ -91,7 +91,7 @@ export default {
               solid: true
         });
             this.$store.commit("SET_USERDATA",response);
-            this.$router.push('home');
+            this.$router.push('Login');
         })
         .catch(function() {
            this.$bvToast.toast('Impossible to create an account', {
