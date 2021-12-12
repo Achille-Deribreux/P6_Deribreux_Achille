@@ -8,11 +8,13 @@ import com.PayMyBuddy.PayMyBuddy.Repository.TransactionDAO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import javax.transaction.Transactional;
 import java.time.LocalDateTime;
 import java.util.*;
 import java.util.stream.Collectors;
 
 @Service
+@Transactional
 public class TransactionService {
 
     @Autowired

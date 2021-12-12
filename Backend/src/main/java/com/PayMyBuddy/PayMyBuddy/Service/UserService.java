@@ -1,24 +1,21 @@
 package com.PayMyBuddy.PayMyBuddy.Service;
 
 import com.PayMyBuddy.PayMyBuddy.DTO.UserDTO;
-import com.PayMyBuddy.PayMyBuddy.Exceptions.CustomExceptions.IncorrectLoginException;
 import com.PayMyBuddy.PayMyBuddy.Exceptions.CustomExceptions.NotEnoughBalanceException;
 import com.PayMyBuddy.PayMyBuddy.Exceptions.CustomExceptions.UserNotFoundException;
 import com.PayMyBuddy.PayMyBuddy.Model.User;
 import com.PayMyBuddy.PayMyBuddy.Repository.UserDAO;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.core.userdetails.UserDetails;
-import org.springframework.security.core.userdetails.UserDetailsService;
-import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
+import javax.transaction.Transactional;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.stream.Collectors;
 
 @Service
+@Transactional
 public class UserService {
     @Autowired
     UserDAO userDAO;

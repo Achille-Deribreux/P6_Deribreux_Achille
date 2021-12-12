@@ -1,7 +1,6 @@
 package com.PayMyBuddy.PayMyBuddy.Exceptions;
 
 import com.PayMyBuddy.PayMyBuddy.Exceptions.CustomExceptions.BankAccountNotFoundException;
-import com.PayMyBuddy.PayMyBuddy.Exceptions.CustomExceptions.IncorrectLoginException;
 import com.PayMyBuddy.PayMyBuddy.Exceptions.CustomExceptions.NotEnoughBalanceException;
 import com.PayMyBuddy.PayMyBuddy.Exceptions.CustomExceptions.UserNotFoundException;
 import com.PayMyBuddy.PayMyBuddy.Model.CustomErrorResponse;
@@ -24,14 +23,6 @@ public class ExceptionsHandler {
         logger.error("User not found");
         CustomErrorResponse res = new CustomErrorResponse(e.getMessage(),e, HttpStatus.CONFLICT, ZonedDateTime.now());
         return new ResponseEntity<>(res, HttpStatus.CONFLICT);
-    }
-
-
-    @ExceptionHandler(IncorrectLoginException.class)
-    public ResponseEntity<Object> handleIncorrectLoginException(IncorrectLoginException e){
-        logger.error("Incorrect email/password");
-        CustomErrorResponse res = new CustomErrorResponse(e.getMessage(),e, HttpStatus.UNAUTHORIZED, ZonedDateTime.now());
-        return new ResponseEntity<>(res, HttpStatus.FORBIDDEN);
     }
 
     @ExceptionHandler(NotEnoughBalanceException.class)
