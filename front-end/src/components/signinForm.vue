@@ -39,6 +39,7 @@
           </b-input-group-prepend>
           <b-form-input id="input-4" v-model="password" type="password" placeholder="Enter password" required></b-form-input>
         </b-input-group>
+        <p class="w-75 mx-auto text-primary text-decoration-underline" @click="loginRedirect()"><u>Ou connectez-vous ! </u></p>
       </b-row>
 
       <b-form-row class="mx-auto center">
@@ -66,6 +67,9 @@ export default {
      PayMyBuddy
    },
     methods: {
+      loginRedirect(){
+        this.$router.push('/')
+      },
       onSubmit(event) {
         event.preventDefault()
         const data = {

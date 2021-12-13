@@ -23,6 +23,7 @@
                 </b-input-group-prepend>
                 <b-form-input id="input-2" v-model="password" type="password" placeholder="Enter password" required></b-form-input>
               </b-input-group>
+              <p class="w-75 mx-auto text-primary text-decoration-underline" @click="signInRedirect()"><u>Ou inscrivez-vous ! </u></p>
       </b-row>
 
       <b-form-row class="mx-auto center">
@@ -49,6 +50,9 @@ export default {
      PayMyBuddy
    },
     methods: {
+      signInRedirect(){
+        this.$router.push('signin')
+      },
       onSubmit(event) {
         event.preventDefault()
         const data = {
