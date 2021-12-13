@@ -42,17 +42,17 @@ public class TransactionService {
 
         for(Transaction neg : negativeTransactions){
             if(neg.getReceiverId() != 0) {
-                allTransactions.add(new TransactionDTO(userService.getUserNameById(neg.getReceiverId()),Formatter.convertAmount(false, neg.getAmount()), neg.getDescription(), neg.getDatestamp()));
+                allTransactions.add(new TransactionDTO(userService.getUserNameById(neg.getReceiverId()),Formatter.convertAmount(false, neg.getAmount()), neg.getDescription(), Formatter.convertDate(neg.getDatestamp())));
             }
             else if(neg.getReceiverId() == 0){
-                allTransactions.add(new TransactionDTO("Bank",Formatter.convertAmount(false,neg.getAmount()),neg.getDescription(),neg.getDatestamp()));
+                allTransactions.add(new TransactionDTO("Bank",Formatter.convertAmount(false,neg.getAmount()),neg.getDescription(),Formatter.convertDate(neg.getDatestamp())));
             }
         }
         for(Transaction pos : positiveTransactions){
             if(pos.getSenderId() != 0) {
-                allTransactions.add(new TransactionDTO(userService.getUserNameById(pos.getSenderId()), Formatter.convertAmount(true, pos.getAmount()), pos.getDescription(), pos.getDatestamp()));
+                allTransactions.add(new TransactionDTO(userService.getUserNameById(pos.getSenderId()), Formatter.convertAmount(true, pos.getAmount()), pos.getDescription(), Formatter.convertDate(pos.getDatestamp())));
             }else if(pos.getSenderId() == 0){
-                allTransactions.add(new TransactionDTO("Bank",Formatter.convertAmount(true,pos.getAmount()),pos.getDescription(),pos.getDatestamp()));
+                allTransactions.add(new TransactionDTO("Bank",Formatter.convertAmount(true,pos.getAmount()),pos.getDescription(),Formatter.convertDate(pos.getDatestamp())));
             }
         }
         List<TransactionDTO> sortedList = allTransactions.stream()
