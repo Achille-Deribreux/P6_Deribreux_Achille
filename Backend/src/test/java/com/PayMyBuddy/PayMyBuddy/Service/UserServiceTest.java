@@ -43,8 +43,8 @@ public class UserServiceTest {
         //Given
         Integer userId = 1;
         Integer moneyToAdd = 100;
-        Integer expected = 200;
-        Integer result ;
+        double expected = 200;
+        double result ;
         //When
         Mockito.when(userDAO.findById(userId)).thenReturn(Optional.of(TestData.getSampleUser()));
         userService.addMoneyToBalance(userId,moneyToAdd);
@@ -58,8 +58,8 @@ public class UserServiceTest {
         //Given
         Integer userId = 1;
         Integer moneyToWithdraw = 100;
-        Integer expected = 0;
-        Integer result ;
+        double expected = 0;
+        double result ;
         //When
         Mockito.when(userDAO.findById(userId)).thenReturn(Optional.of(TestData.getSampleUser()));
         userService.withdrawMoneyFromBalance(userId,moneyToWithdraw);

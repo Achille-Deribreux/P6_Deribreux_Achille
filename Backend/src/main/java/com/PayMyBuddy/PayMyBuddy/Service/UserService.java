@@ -30,12 +30,12 @@ public class UserService {
         this.userDAO = userDAO;
     }
 
-    public void addMoneyToBalance(Integer userId, Integer moneyToAdd){
+    public void addMoneyToBalance(Integer userId, double moneyToAdd){
         User user = getUserById(userId);
         user.setBalance(user.getBalance() + moneyToAdd);
     }
 
-    public void withdrawMoneyFromBalance(Integer userId, Integer moneyToWithdraw){
+    public void withdrawMoneyFromBalance(Integer userId, double moneyToWithdraw){
         User user = getUserById(userId);
         user.setBalance(user.getBalance() - moneyToWithdraw);
     }
@@ -76,7 +76,7 @@ public class UserService {
         return userDTOList;
     }
 
-    public void checkUserBalance(Integer userId, Integer amount){
+    public void checkUserBalance(Integer userId, double amount){
         User user = getUserById(userId);
         if(user.getBalance() < amount){
             throw new NotEnoughBalanceException();

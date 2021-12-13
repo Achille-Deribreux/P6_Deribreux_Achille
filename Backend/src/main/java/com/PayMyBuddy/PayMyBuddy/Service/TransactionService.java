@@ -69,12 +69,15 @@ public class TransactionService {
     }
 
     public Transaction addTransaction(Transaction addTransaction){
+        addTransaction.setAmount(withdrawTaxes(addTransaction.getAmount()));
         userService.checkUserBalance(addTransaction.getSenderId(),addTransaction.getAmount());
         userService.withdrawMoneyFromBalance(addTransaction.getSenderId(), addTransaction.getAmount());
-        userService.addMoneyToBalance(addTransaction.getReceiverId(),addTransaction.getAmount());
+        userService.addMoneyToBalance(addTransaction.getReceiverId(), addTransaction.getAmount());
         addTransaction.setDatestamp(LocalDateTime.now());
         return transactionDAO.save(addTransaction);
     }
+
+   
 
     public Transaction addCreditBankAccount(CreditBankAccountDTO creditBankAccountDTO){
         userService.addMoneyToBalance(creditBankAccountDTO.getUserId(), creditBankAccountDTO.getAmount());
@@ -99,6 +102,10 @@ public class TransactionService {
                         LocalDateTime.now(),
                         "Money send to my account N° " + creditBankAccountDTO.getAccountNumber()
                 ));
+    }
+
+    public double withdrawTaxes(double amount){
+        return amount*(1-0.005);
     }
 }
 

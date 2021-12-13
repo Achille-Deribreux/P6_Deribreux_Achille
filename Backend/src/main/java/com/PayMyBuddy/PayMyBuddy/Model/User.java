@@ -21,12 +21,12 @@ public class User {
     private String email;
 
     @Column(name = "balance")
-    private int balance;
+    private double balance;
 
     @Column(name = "password")
     private String password;
 
-    public User(int id, String firstName, String lastName, String email, int balance, String password) {
+    public User(int id, String firstName, String lastName, String email, double balance, String password) {
         this.id = id;
         this.firstName = firstName;
         this.lastName = lastName;
@@ -70,11 +70,11 @@ public class User {
         this.email = email;
     }
 
-    public int getBalance() {
+    public double getBalance() {
         return balance;
     }
 
-    public void setBalance(int balance) {
+    public void setBalance(double balance) {
         this.balance = balance;
     }
 
@@ -88,11 +88,10 @@ public class User {
 
     @Override
     public boolean equals(Object o) {
-
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         User user = (User) o;
-        return id == user.id && balance == user.balance && Objects.equals(firstName, user.firstName) && Objects.equals(lastName, user.lastName) && Objects.equals(email, user.email) && Objects.equals(password, user.password);
+        return id == user.id && Double.compare(user.balance, balance) == 0 && Objects.equals(firstName, user.firstName) && Objects.equals(lastName, user.lastName) && Objects.equals(email, user.email) && Objects.equals(password, user.password);
     }
 
     @Override

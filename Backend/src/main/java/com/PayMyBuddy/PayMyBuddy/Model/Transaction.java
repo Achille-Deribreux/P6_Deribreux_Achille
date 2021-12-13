@@ -21,7 +21,7 @@ public class Transaction {
     private int receiverId;
 
     @Column(name = "amount")
-    private int amount;
+    private double amount;
 
     @Column(name = "datestamp")
     LocalDateTime datestamp;
@@ -29,7 +29,7 @@ public class Transaction {
     @Column(name="description")
     private String description;
 
-    public Transaction(int senderId, int receiverId, int amount, LocalDateTime datestamp, String description) {
+    public Transaction(int senderId, int receiverId, double amount, LocalDateTime datestamp, String description) {
         this.senderId = senderId;
         this.receiverId = receiverId;
         this.amount = amount;
@@ -64,11 +64,11 @@ public class Transaction {
         this.receiverId = receiverId;
     }
 
-    public int getAmount() {
+    public double getAmount() {
         return amount;
     }
 
-    public void setAmount(int amount) {
+    public void setAmount(double amount) {
         this.amount = amount;
     }
 
@@ -93,7 +93,7 @@ public class Transaction {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         Transaction that = (Transaction) o;
-        return id == that.id && senderId == that.senderId && receiverId == that.receiverId && amount == that.amount && Objects.equals(Formatter.convertDate(datestamp), Formatter.convertDate(that.datestamp)) && Objects.equals(description, that.description);
+        return id == that.id && senderId == that.senderId && receiverId == that.receiverId && Double.compare(that.amount, amount) == 0 && Objects.equals(datestamp, that.datestamp) && Objects.equals(description, that.description);
     }
 
     @Override

@@ -9,7 +9,7 @@ public class Formatter {
         return datetime.format(formatter);
     }
 
-    public static String convertAmount(Boolean positive, Integer amount){
+    public static String convertAmount(Boolean positive, double amount){
         if(positive){
             return "+"+ amount+"€";
         }
