@@ -52,11 +52,11 @@ public class TransactionService {
             if(pos.getSenderId() != 0) {
                 allTransactions.add(new TransactionDTO(userService.getUserNameById(pos.getSenderId()), Formatter.convertAmount(true, pos.getAmount()), pos.getDescription(), Formatter.convertDate(pos.getDatestamp())));
             }else if(pos.getSenderId() == 0){
-                allTransactions.add(new TransactionDTO("Bank",Formatter.convertAmount(true,pos.getAmount()),pos.getDescription(),Formatter.convertDate(pos.getDatestamp())));
+                allTransactions.add(new TransactionDTO("Bank",Formatter.convertAmount(true,pos.getAmount()),pos.getDescription(), Formatter.convertDate(pos.getDatestamp())));
             }
         }
         List<TransactionDTO> sortedList = allTransactions.stream()
-                .sorted(Comparator.comparing(TransactionDTO :: getDatestamp).reversed())
+                .sorted(Comparator.comparing(TransactionDTO co getDatestamp).reversed())
                 .collect(Collectors.toList());
         return sortedList;
     }
@@ -69,15 +69,23 @@ public class TransactionService {
     }
 
     public Transaction addTransaction(Transaction addTransaction){
-        addTransaction.setAmount(withdrawTaxes(addTransaction.getAmount()));
         userService.checkUserBalance(addTransaction.getSenderId(),addTransaction.getAmount());
         userService.withdrawMoneyFromBalance(addTransaction.getSenderId(), addTransaction.getAmount());
         userService.addMoneyToBalance(addTransaction.getReceiverId(), addTransaction.getAmount());
         addTransaction.setDatestamp(LocalDateTime.now());
+        addTaxesTransaction(addTransaction);
         return transactionDAO.save(addTransaction);
     }
 
-   
+    public void addTaxesTransaction(Transaction transaction){
+        transactionDAO.save(new Transaction(
+            transaction.getSenderId(),
+                0,
+                calculateTaxes(transaction.getAmount()),
+                LocalDateTime.now().plusMinutes(1),
+                "Taxes for transaction of " + transaction.getAmount()+ "€")
+        );
+    }
 
     public Transaction addCreditBankAccount(CreditBankAccountDTO creditBankAccountDTO){
         userService.addMoneyToBalance(creditBankAccountDTO.getUserId(), creditBankAccountDTO.getAmount());
@@ -104,8 +112,8 @@ public class TransactionService {
                 ));
     }
 
-    public double withdrawTaxes(double amount){
-        return amount*(1-0.005);
+    public double calculateTaxes(double amount){
+        return amount*0.005;
     }
 }
 
