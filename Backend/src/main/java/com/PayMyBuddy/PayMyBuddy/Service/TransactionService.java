@@ -56,7 +56,7 @@ public class TransactionService {
             }
         }
         List<TransactionDTO> sortedList = allTransactions.stream()
-                .sorted(Comparator.comparing(TransactionDTO co getDatestamp).reversed())
+                .sorted(Comparator.comparing(TransactionDTO :: getDatestamp).reversed())
                 .collect(Collectors.toList());
         return sortedList;
     }
