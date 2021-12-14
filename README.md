@@ -1,5 +1,5 @@
 <p align="center">
-  <img src="https://github.com/Achille-Deribreux/P6_Deribreux_Achille/blob/develop/P6_UML.jpg" alt="PayMyBuddy Logo"/>
+  <img src="https://github.com/Achille-Deribreux/P6_Deribreux_Achille/blob/develop/logo.png" alt="PayMyBuddy Logo"/>
 </p>
 
 # OpenClassrooms Application Developer Java Project 6
