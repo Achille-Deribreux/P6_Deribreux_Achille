@@ -11,12 +11,12 @@
       </b-col>
     </b-row>
     <div class="bg-light mb-4 mx-5 p-5">
-      <b-form @submit="onSubmit" inline class="w-75 mx-auto">
+      <b-form @submit="onSubmit" id="form-flex" class="w-75 mx-auto">
         <b-form-select v-model="form.receiverId" required class="mx-2">
           <option value=null>Please select an option</option>
           <option v-for="friend in friends" :value="friend.id" :key="friend.friendid">{{friend.firstName+" "+friend.lastName}}</option>
           </b-form-select>
-          <b-form-input v-model="form.amount" placeholder="amount" type="number" class="mx-2"></b-form-input>
+          <b-form-input v-model="form.amount" placeholder="amount" type="number" step="0.01" class="mx-2"></b-form-input>
            <b-form-input v-model="form.description" placeholder="description" type="text" class="mx-2"></b-form-input>
         <b-button variant="success" type="submit" class="mx-2">Pay</b-button>
       </b-form>
@@ -42,7 +42,7 @@ name: 'Transfer',
       form:{
         amount : 0,
         receiverId : null,
-        userId : this.$store.state.userdata.userid,
+        senderId : this.$store.state.userdata.userid,
         description : ""
       },
       friends:[]
@@ -64,21 +64,25 @@ name: 'Transfer',
       })
        .then(response => response.json())
         .then((response) => {
-          this.$bvToast.toast('Money has been send', {
-              title: "Success",
-              variant: "success",
-              solid: true
-        });
-          this.$store.commit('UPDATE_BALANCE');
-            console.log(response)
-        })
-        .catch(function(error) {
-             this.$bvToast.toast('Impossible to transfer money', {
+          if(response.httpStatus == 'UNAUTHORIZED'){
+            this.$bvToast.toast('Not enought money', {
               title: "Error",
               variant: "danger",
               solid: true
         });
-            alert('Il y a eu un problème avec l\'opération fetch: ' + error.message);
+          }
+          else{
+            this.$bvToast.toast('Money has been send', {
+                title: "Success",
+                variant: "success",
+                solid: true
+            });
+          }
+          this.$store.commit('UPDATE_BALANCE');
+            console.log(response)
+        })
+        .catch(function(error) {
+          console.log('error', error)
           });
       }},
      mounted(){
@@ -104,5 +108,10 @@ name: 'Transfer',
 </script>
 
 <style>
+#form-flex{
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+}
 
 </style>

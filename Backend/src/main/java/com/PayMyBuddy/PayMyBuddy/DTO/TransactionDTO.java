@@ -9,9 +9,9 @@ public class TransactionDTO {
     private String connection;
     private String amount;
     private String description;
-    private LocalDateTime datestamp;
+    private String datestamp;
 
-    public TransactionDTO(String connection, String amount, String description, LocalDateTime datestamp) {
+    public TransactionDTO(String connection, String amount, String description, String datestamp) {
         this.connection = connection;
         this.amount = amount;
         this.description = description;
@@ -42,11 +42,11 @@ public class TransactionDTO {
         this.description = description;
     }
 
-    public LocalDateTime getDatestamp() {
+    public String getDatestamp() {
         return datestamp;
     }
 
-    public void setDatestamp(LocalDateTime datestamp) {
+    public void setDatestamp(String datestamp) {
         this.datestamp = datestamp;
     }
 
@@ -55,7 +55,7 @@ public class TransactionDTO {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         TransactionDTO that = (TransactionDTO) o;
-        return Objects.equals(connection, that.connection) && Objects.equals(amount, that.amount) && Objects.equals(description, that.description) && Objects.equals(Formatter.convertDate(datestamp), Formatter.convertDate(that.datestamp));
+        return Objects.equals(connection, that.connection) && Objects.equals(amount, that.amount) && Objects.equals(description, that.description) && Objects.equals(datestamp, that.datestamp);
     }
 
     @Override

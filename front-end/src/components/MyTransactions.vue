@@ -10,7 +10,7 @@
             </b-col>
             </b-row>
         </b-container>
-        <b-table striped hover :items="transactions" :fields="fields"></b-table>
+        <b-table striped hover :items="transactions"></b-table>
     </div>
 </template>
 

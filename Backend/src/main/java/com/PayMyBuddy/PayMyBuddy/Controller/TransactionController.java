@@ -2,7 +2,6 @@ package com.PayMyBuddy.PayMyBuddy.Controller;
 
 import com.PayMyBuddy.PayMyBuddy.DTO.CreditBankAccountDTO;
 import com.PayMyBuddy.PayMyBuddy.DTO.TransactionDTO;
-import com.PayMyBuddy.PayMyBuddy.Model.Specific.AddTransaction;
 import com.PayMyBuddy.PayMyBuddy.Model.Transaction;
 import com.PayMyBuddy.PayMyBuddy.Service.TransactionService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -20,8 +19,13 @@ public class TransactionController {
     TransactionService transactionService;
 
     @PostMapping(value="/addtransaction")
-    public ResponseEntity<Transaction>addTransaction(@RequestBody AddTransaction addTransaction){
-        return new ResponseEntity<>(transactionService.addTransaction(addTransaction), HttpStatus.CREATED);
+    public ResponseEntity<Transaction>addTransaction(@RequestBody Transaction addTransaction){
+        if(addTransaction.getSenderId() == 0 || addTransaction.getReceiverId() == 0 || addTransaction.getAmount() == 0 ){
+            return new ResponseEntity<>(null,HttpStatus.NO_CONTENT);
+        }
+        else {
+            return new ResponseEntity<>(transactionService.addTransaction(addTransaction), HttpStatus.CREATED);
+        }
     }
 
     @GetMapping(value="/getalltransactionsbyid")
@@ -31,11 +35,21 @@ public class TransactionController {
 
     @PostMapping(value="addMoneyFromAccount")
     public ResponseEntity<Transaction>addMoneyFromAccount(@RequestBody CreditBankAccountDTO creditBankAccountDTO){
-        return new ResponseEntity<>(transactionService.addCreditBankAccount(creditBankAccountDTO),HttpStatus.CREATED);
+        if(creditBankAccountDTO.getUserId() == 0 || creditBankAccountDTO.getAccountNumber() == 0 || creditBankAccountDTO.getAmount() == 0 ){
+            return new ResponseEntity<>(null,HttpStatus.NO_CONTENT);
+        }
+        else {
+            return new ResponseEntity<>(transactionService.addCreditBankAccount(creditBankAccountDTO), HttpStatus.CREATED);
+        }
     }
 
     @PostMapping(value="sendMoneyToAccount")
     public ResponseEntity<Transaction>sendMoneyToAccount(@RequestBody CreditBankAccountDTO creditBankAccountDTO){
-        return new ResponseEntity<>(transactionService.withdrawCreditBankAccount(creditBankAccountDTO),HttpStatus.CREATED);
+        if(creditBankAccountDTO.getUserId() == 0 || creditBankAccountDTO.getAccountNumber() == 0 || creditBankAccountDTO.getAmount() == 0 ){
+            return new ResponseEntity<>(null,HttpStatus.NO_CONTENT);
+        }
+        else {
+            return new ResponseEntity<>(transactionService.withdrawCreditBankAccount(creditBankAccountDTO), HttpStatus.CREATED);
+        }
     }
 }

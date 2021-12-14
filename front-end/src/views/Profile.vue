@@ -69,8 +69,6 @@ name: 'Profile',
      mounted(){
        this.$store.commit('UPDATE_BALANCE');
      }
-
-
    }
 }
 </script>

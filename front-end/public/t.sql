@@ -3,11 +3,10 @@ CREATE TABLE `transactions` (
   id int NOT NULL AUTO_INCREMENT,
   senderid int NOT NULL,
   receiverid int NOT NULL,
-  amount int NOT NULL,
+  amount DECIMAL(10,2) NOT NULL,
   datestamp DATETIME NOT NULL, 
   description varchar(255) NOT NULL,
-  PRIMARY KEY (id),
-  CONSTRAINT fk_senderid FOREIGN KEY (senderid) REFERENCES users(id)
+  PRIMARY KEY (id)
 );
 
 DROP TABLE IF EXISTS `users`;
@@ -17,7 +16,7 @@ CREATE TABLE `users` (
   lastname varchar(255) NOT NULL,
   email varchar(255) NOT NULL,
   password varchar(255) NOT NULL,
-  balance int NOT NULL,
+  balance DECIMAL(10,2) NOT NULL,
   PRIMARY KEY (id)
 );
 

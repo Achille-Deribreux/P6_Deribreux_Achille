@@ -3,17 +3,18 @@ package com.PayMyBuddy.PayMyBuddy.Service;
 import com.PayMyBuddy.PayMyBuddy.Utils.Formatter;
 import com.PayMyBuddy.PayMyBuddy.DTO.CreditBankAccountDTO;
 import com.PayMyBuddy.PayMyBuddy.DTO.TransactionDTO;
-import com.PayMyBuddy.PayMyBuddy.Model.Specific.AddTransaction;
 import com.PayMyBuddy.PayMyBuddy.Model.Transaction;
 import com.PayMyBuddy.PayMyBuddy.Repository.TransactionDAO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import javax.transaction.Transactional;
 import java.time.LocalDateTime;
 import java.util.*;
 import java.util.stream.Collectors;
 
 @Service
+@Transactional
 public class TransactionService {
 
     @Autowired
@@ -41,17 +42,17 @@ public class TransactionService {
 
         for(Transaction neg : negativeTransactions){
             if(neg.getReceiverId() != 0) {
-                allTransactions.add(new TransactionDTO(userService.getUserNameById(neg.getReceiverId()),Formatter.convertAmount(false, neg.getAmount()), neg.getDescription(), neg.getDatestamp()));
+                allTransactions.add(new TransactionDTO(userService.getUserNameById(neg.getReceiverId()),Formatter.convertAmount(false, neg.getAmount()), neg.getDescription(), Formatter.convertDate(neg.getDatestamp())));
             }
             else if(neg.getReceiverId() == 0){
-                allTransactions.add(new TransactionDTO("Bank",Formatter.convertAmount(false,neg.getAmount()),neg.getDescription(),neg.getDatestamp()));
+                allTransactions.add(new TransactionDTO("Bank",Formatter.convertAmount(false,neg.getAmount()),neg.getDescription(),Formatter.convertDate(neg.getDatestamp())));
             }
         }
         for(Transaction pos : positiveTransactions){
             if(pos.getSenderId() != 0) {
-                allTransactions.add(new TransactionDTO(userService.getUserNameById(pos.getSenderId()), Formatter.convertAmount(true, pos.getAmount()), pos.getDescription(), pos.getDatestamp()));
+                allTransactions.add(new TransactionDTO(userService.getUserNameById(pos.getSenderId()), Formatter.convertAmount(true, pos.getAmount()), pos.getDescription(), Formatter.convertDate(pos.getDatestamp())));
             }else if(pos.getSenderId() == 0){
-                allTransactions.add(new TransactionDTO("Bank",Formatter.convertAmount(true,pos.getAmount()),pos.getDescription(),pos.getDatestamp()));
+                allTransactions.add(new TransactionDTO("Bank",Formatter.convertAmount(true,pos.getAmount()),pos.getDescription(), Formatter.convertDate(pos.getDatestamp())));
             }
         }
         List<TransactionDTO> sortedList = allTransactions.stream()
@@ -67,18 +68,24 @@ public class TransactionService {
         return transactionDAO.findByReceiverId(receiverId);
     }
 
-    public Transaction addTransaction(AddTransaction addTransaction){
-        userService.checkUserBalance(addTransaction.getUserId(),addTransaction.getAmount());
-        userService.withdrawMoneyFromBalance(addTransaction.getUserId(), addTransaction.getAmount());
-        userService.addMoneyToBalance(addTransaction.getReceiverId(),addTransaction.getAmount());
-        return transactionDAO.save(
-                new Transaction(
-                        addTransaction.getUserId(),
-                        addTransaction.getReceiverId(),
-                        addTransaction.getAmount(),
-                        LocalDateTime.now(),
-                        addTransaction.getDescription()
-                ));
+    public Transaction addTransaction(Transaction addTransaction){
+        userService.checkUserBalance(addTransaction.getSenderId(),addTransaction.getAmount());
+        userService.withdrawMoneyFromBalance(addTransaction.getSenderId(), addTransaction.getAmount());
+        userService.addMoneyToBalance(addTransaction.getReceiverId(), addTransaction.getAmount());
+        addTransaction.setDatestamp(LocalDateTime.now());
+        addTaxesTransaction(addTransaction);
+        return transactionDAO.save(addTransaction);
+    }
+
+    public void addTaxesTransaction(Transaction transaction){
+        userService.withdrawMoneyFromBalance(transaction.getSenderId(),  calculateTaxes(transaction.getAmount()));
+        transactionDAO.save(new Transaction(
+            transaction.getSenderId(),
+                0,
+                calculateTaxes(transaction.getAmount()),
+                LocalDateTime.now().plusMinutes(1),
+                "Taxes for transaction of " + transaction.getAmount()+ "€")
+        );
     }
 
     public Transaction addCreditBankAccount(CreditBankAccountDTO creditBankAccountDTO){
@@ -96,6 +103,7 @@ public class TransactionService {
     public Transaction withdrawCreditBankAccount(CreditBankAccountDTO creditBankAccountDTO){
         userService.checkUserBalance(creditBankAccountDTO.getUserId(),creditBankAccountDTO.getAmount());
         userService.withdrawMoneyFromBalance(creditBankAccountDTO.getUserId(), creditBankAccountDTO.getAmount());
+        addTaxesTransaction(new Transaction(creditBankAccountDTO.getUserId(), 0,creditBankAccountDTO.getAmount(),null,null));
         return transactionDAO.save(
                 new Transaction(
                         creditBankAccountDTO.getUserId(),
@@ -104,6 +112,10 @@ public class TransactionService {
                         LocalDateTime.now(),
                         "Money send to my account N° " + creditBankAccountDTO.getAccountNumber()
                 ));
+    }
+
+    public double calculateTaxes(double amount){
+        return amount*0.005;
     }
 }
 

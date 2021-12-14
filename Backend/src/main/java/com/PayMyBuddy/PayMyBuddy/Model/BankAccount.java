@@ -1,6 +1,7 @@
 package com.PayMyBuddy.PayMyBuddy.Model;
 
 import javax.persistence.*;
+import java.util.Objects;
 
 @Entity
 @Table(name = "bankaccount")
@@ -23,6 +24,9 @@ public class BankAccount {
         this.userId = userId;
         this.accountNumber = accountNumber;
         this.bank = bank;
+    }
+
+    public BankAccount() {
     }
 
     public int getId() {
@@ -55,5 +59,18 @@ public class BankAccount {
 
     public void setBank(String bank) {
         this.bank = bank;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        BankAccount that = (BankAccount) o;
+        return id == that.id && userId == that.userId && accountNumber == that.accountNumber && Objects.equals(bank, that.bank);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(id, userId, accountNumber, bank);
     }
 }

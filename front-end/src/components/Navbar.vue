@@ -18,8 +18,8 @@
                 <router-link to="/contact">Contact</router-link>
             </span>
 
-            <span class="mx-2">
-                Log off
+            <span class="mx-2" @click="logout()">
+               Logout
             </span>
         </nav>
     </div>
@@ -27,11 +27,16 @@
 
 <script>
 import PayMyBuddy from '../components/PayMyBuddy.vue'
-
 export default {
     name: 'navigation',
     components : {
      PayMyBuddy
+   },
+   methods:{
+     logout(){
+      this.$store.commit('LOGOUT');
+      this.$router.push('/');
+     }
    }
 }
 </script>

@@ -7,12 +7,12 @@ public class UserDTO {
     private String firstName;
     private String lastName;
     private String email;
-    private int balance;
+    private double balance;
 
     public UserDTO() {
     }
 
-    public UserDTO(int id, String firstName, String lastName, String email, int balance) {
+    public UserDTO(int id, String firstName, String lastName, String email, double balance) {
         this.id = id;
         this.firstName = firstName;
         this.lastName = lastName;
@@ -52,11 +52,11 @@ public class UserDTO {
         this.email = email;
     }
 
-    public int getBalance() {
+    public double getBalance() {
         return balance;
     }
 
-    public void setBalance(int balance) {
+    public void setBalance(double balance) {
         this.balance = balance;
     }
 
@@ -65,7 +65,7 @@ public class UserDTO {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         UserDTO userDTO = (UserDTO) o;
-        return id == userDTO.id && balance == userDTO.balance && Objects.equals(firstName, userDTO.firstName) && Objects.equals(lastName, userDTO.lastName) && Objects.equals(email, userDTO.email);
+        return id == userDTO.id && Double.compare(userDTO.balance, balance) == 0 && Objects.equals(firstName, userDTO.firstName) && Objects.equals(lastName, userDTO.lastName) && Objects.equals(email, userDTO.email);
     }
 
     @Override

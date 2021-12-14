@@ -23,6 +23,7 @@
                 </b-input-group-prepend>
                 <b-form-input id="input-2" v-model="password" type="password" placeholder="Enter password" required></b-form-input>
               </b-input-group>
+              <p class="w-75 mx-auto text-primary text-decoration-underline" @click="signInRedirect()"><u>Ou inscrivez-vous ! </u></p>
       </b-row>
 
       <b-form-row class="mx-auto center">
@@ -49,6 +50,9 @@ export default {
      PayMyBuddy
    },
     methods: {
+      signInRedirect(){
+        this.$router.push('signin')
+      },
       onSubmit(event) {
         event.preventDefault()
         const data = {
@@ -69,7 +73,7 @@ export default {
           this.$store.commit("SET_TOKEN",response.headers.get("Authorization"));
           localStorage.setItem('token', response.headers.get("Authorization"));
           this.$store.commit("GET_USERINFO");
-          setTimeout( () => this.$router.push('home'), 1000)
+          setTimeout(() => this.$router.push('home'), 1000)
         })
         .catch(function() {
           console.log("catch")
