@@ -31,6 +31,9 @@ export default new Vuex.Store({
     SET_EMAIL(state, email){
       state.userdata.email = email
     },
+    LOGOUT(state){
+      state.userdata.userid = 0
+    },
     UPDATE_BALANCE(){
       fetch("http://localhost:9090/userById?id="+this.state.userdata.userid,{
             method: 'GET',
