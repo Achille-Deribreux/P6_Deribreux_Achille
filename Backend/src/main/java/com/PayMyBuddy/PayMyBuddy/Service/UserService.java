@@ -78,7 +78,8 @@ public class UserService {
 
     public void checkUserBalance(Integer userId, double amount){
         User user = getUserById(userId);
-        if(user.getBalance() < amount){
+        double amountWithTaxes = amount+(amount*0.005);
+        if(user.getBalance() < amountWithTaxes){
             throw new NotEnoughBalanceException();
         }
     }

@@ -78,6 +78,7 @@ public class TransactionService {
     }
 
     public void addTaxesTransaction(Transaction transaction){
+        userService.withdrawMoneyFromBalance(transaction.getSenderId(),  calculateTaxes(transaction.getAmount()));
         transactionDAO.save(new Transaction(
             transaction.getSenderId(),
                 0,
@@ -102,6 +103,7 @@ public class TransactionService {
     public Transaction withdrawCreditBankAccount(CreditBankAccountDTO creditBankAccountDTO){
         userService.checkUserBalance(creditBankAccountDTO.getUserId(),creditBankAccountDTO.getAmount());
         userService.withdrawMoneyFromBalance(creditBankAccountDTO.getUserId(), creditBankAccountDTO.getAmount());
+        addTaxesTransaction(new Transaction(creditBankAccountDTO.getUserId(), 0,creditBankAccountDTO.getAmount(),null,null));
         return transactionDAO.save(
                 new Transaction(
                         creditBankAccountDTO.getUserId(),
