@@ -93,7 +93,7 @@ public class Transaction {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         Transaction that = (Transaction) o;
-        return id == that.id && senderId == that.senderId && receiverId == that.receiverId && Double.compare(that.amount, amount) == 0 && Objects.equals(datestamp, that.datestamp) && Objects.equals(description, that.description);
+        return id == that.id && senderId == that.senderId && receiverId == that.receiverId && Double.compare(that.amount, amount) == 0 && Objects.equals(Formatter.convertDate(datestamp), Formatter.convertDate(that.datestamp)) && Objects.equals(description, that.description);
     }
 
     @Override

@@ -141,8 +141,8 @@ public class TestData {
 
     public static List<TransactionDTO> getSampleForTransactionDTO(){
         return new ArrayList<>(Arrays.asList(
-                new TransactionDTO("X X","+500€","hl", Formatter.convertDate(LocalDateTime.now())),
-                new TransactionDTO("X X","-1000€","hl",Formatter.convertDate(LocalDateTime.now()))
+                new TransactionDTO("X X","-1000.0€","hl",Formatter.convertDate(LocalDateTime.now())),
+                new TransactionDTO("X X","+500.0€","hl", Formatter.convertDate(LocalDateTime.now()))
         ));
     }
 }
