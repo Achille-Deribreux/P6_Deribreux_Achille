@@ -9,6 +9,9 @@ public class AddConnection {
         this.userid = userid;
     }
 
+    public AddConnection() {
+    }
+
     public String getFriendemail() {
         return friendemail;
     }

@@ -28,8 +28,6 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 @Import({TestConfig.class})
 public class BankAccountControllerTest {
 
-    //TODO : Test errors & code 204 on every controllerTest
-
     @Autowired
     MockMvc mockMvc;
 
@@ -58,6 +56,14 @@ public class BankAccountControllerTest {
     }
 
     @Test
+    public void addBankAccountNoContentTest() throws Exception{
+        //Given
+        BankAccount bankAccount = new BankAccount();
+        //When & Then
+        mockMvc.perform(post("/addBankAccount").contentType(MediaType.APPLICATION_JSON).content(TestUtils.asJsonString(bankAccount))).andExpect(status().isNoContent());
+    }
+
+    @Test
     public void getAllBankAccountsByUserIdTest() throws Exception{
         //Given
         int id = 3;
@@ -71,6 +77,14 @@ public class BankAccountControllerTest {
         BankAccount bankAccount = TestData.getSampleBankAccount();
         //When & Then
         mockMvc.perform(delete("/deleteBankAccount").contentType(MediaType.APPLICATION_JSON).content(TestUtils.asJsonString(bankAccount))).andExpect(status().isOk());
+    }
+
+    @Test
+    public void deleteBankAccountNoContentTest() throws Exception{
+        //Given
+        BankAccount bankAccount = new BankAccount();
+        //When & Then
+        mockMvc.perform(delete("/deleteBankAccount").contentType(MediaType.APPLICATION_JSON).content(TestUtils.asJsonString(bankAccount))).andExpect(status().isNoContent());
     }
 
 }

@@ -35,7 +35,7 @@ public class TransactionController {
 
     @PostMapping(value="addMoneyFromAccount")
     public ResponseEntity<Transaction>addMoneyFromAccount(@RequestBody CreditBankAccountDTO creditBankAccountDTO){
-        if(creditBankAccountDTO.getUserId() == 0 || creditBankAccountDTO.getAccountNumber() == 0 || creditBankAccountDTO.getAmount() == 0 ){
+        if(creditBankAccountDTO.getUserId() == null || creditBankAccountDTO.getAccountNumber() == null || creditBankAccountDTO.getAmount() == null ){
             return new ResponseEntity<>(null,HttpStatus.NO_CONTENT);
         }
         else {
@@ -45,7 +45,7 @@ public class TransactionController {
 
     @PostMapping(value="sendMoneyToAccount")
     public ResponseEntity<Transaction>sendMoneyToAccount(@RequestBody CreditBankAccountDTO creditBankAccountDTO){
-        if(creditBankAccountDTO.getUserId() == 0 || creditBankAccountDTO.getAccountNumber() == 0 || creditBankAccountDTO.getAmount() == 0 ){
+        if(creditBankAccountDTO.getUserId() == null || creditBankAccountDTO.getAccountNumber() == null || creditBankAccountDTO.getAmount() == null ){
             return new ResponseEntity<>(null,HttpStatus.NO_CONTENT);
         }
         else {
