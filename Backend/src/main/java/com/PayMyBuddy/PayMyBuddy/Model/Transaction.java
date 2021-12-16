@@ -29,6 +29,15 @@ public class Transaction {
     @Column(name="description")
     private String description;
 
+    public Transaction(int id, int senderId, int receiverId, double amount, LocalDateTime datestamp, String description) {
+        this.id = id;
+        this.senderId = senderId;
+        this.receiverId = receiverId;
+        this.amount = amount;
+        this.datestamp = datestamp;
+        this.description = description;
+    }
+
     public Transaction(int senderId, int receiverId, double amount, LocalDateTime datestamp, String description) {
         this.senderId = senderId;
         this.receiverId = receiverId;
