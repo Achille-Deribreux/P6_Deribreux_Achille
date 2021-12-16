@@ -17,6 +17,12 @@ public class Connection {
     @Column(name="friendid")
     private int friendid;
 
+    public Connection(int id, int userid, int friendid) {
+        this.id = id;
+        this.userid = userid;
+        this.friendid = friendid;
+    }
+
     public Connection(int userid, int friendid) {
         this.userid = userid;
         this.friendid = friendid;

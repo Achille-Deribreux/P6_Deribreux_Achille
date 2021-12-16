@@ -145,4 +145,12 @@ public class TestData {
                 new TransactionDTO("X X","+500.0€","hl", Formatter.convertDate(LocalDateTime.now()))
         ));
     }
+
+    public static List<Connection> getSampleConnectionListForJPATest(){
+        return new ArrayList<>(Arrays.asList(
+                new Connection(1,1,2),
+                new Connection(2,1,3),
+                new Connection(3,1,4)
+        ));
+    }
 }
