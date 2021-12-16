@@ -35,6 +35,14 @@ public class User {
         this.password = password;
     }
 
+    public User(String firstName, String lastName, String email, double balance, String password) {
+        this.firstName = firstName;
+        this.lastName = lastName;
+        this.email = email;
+        this.balance = balance;
+        this.password = password;
+    }
+
     public User() {
     }
 
