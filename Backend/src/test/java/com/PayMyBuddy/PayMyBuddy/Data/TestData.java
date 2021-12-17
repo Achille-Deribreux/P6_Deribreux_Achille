@@ -153,4 +153,12 @@ public class TestData {
                 new Connection(3,1,4)
         ));
     }
+
+    public static List<BankAccount> getSampleBankAccountListWithDbId() {
+        return new ArrayList<>(Arrays.asList(
+                new BankAccount(1,1, 123, "CBC"),
+                new BankAccount(2,1, 12345, "CBC"),
+                new BankAccount(3,1, 12346, "CBC")
+        ));
+    }
 }

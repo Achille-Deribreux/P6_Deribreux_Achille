@@ -15,6 +15,10 @@ public class BankAccountController {
     @Autowired
     BankAccountService bankAccountService;
 
+    public void setBankAccountService(BankAccountService bankAccountService) {
+        this.bankAccountService = bankAccountService;
+    }
+
     @PostMapping(value="/addBankAccount")
     public ResponseEntity<BankAccount>addBankAccount(@RequestBody BankAccount bankAccount){
         if(bankAccount.getAccountNumber() == 0 || bankAccount.getBank() == null || bankAccount.getUserId() == 0 ){
@@ -23,13 +27,11 @@ public class BankAccountController {
         else {
             return new ResponseEntity<>(bankAccountService.addBankAccount(bankAccount), HttpStatus.CREATED);
         }
-        //TODO: Check les autres Post car pq utiliser les modèles adds ??
     }
 
     @GetMapping(value="/getAllBankAccountsByUserId")
     public ResponseEntity<List<BankAccount>>getAllBankAccountsByUserId(@RequestParam(value="userId") Integer userId){
         return new ResponseEntity<>(bankAccountService.getBankAccountsByUserId(userId), HttpStatus.OK);
-        //TODO : add vérifications not null http 204
     }
 
     @DeleteMapping(value="/deleteBankAccount")
