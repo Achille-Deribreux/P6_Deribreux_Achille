@@ -30,6 +30,10 @@ public class UserService {
         this.userDAO = userDAO;
     }
 
+    public void setPasswordEncoder(PasswordEncoder passwordEncoder) {
+        this.passwordEncoder = passwordEncoder;
+    }
+
     public void setModelMapper(ModelMapper modelMapper) {
         this.modelMapper = modelMapper;
     }

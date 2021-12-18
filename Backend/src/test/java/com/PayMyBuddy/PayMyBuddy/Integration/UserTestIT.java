@@ -4,6 +4,7 @@ package com.PayMyBuddy.PayMyBuddy.Integration;
 import com.PayMyBuddy.PayMyBuddy.Configuration.ApplicationUserService;
 import com.PayMyBuddy.PayMyBuddy.Controller.ConnectionController;
 import com.PayMyBuddy.PayMyBuddy.Controller.UserController;
+import com.PayMyBuddy.PayMyBuddy.DTO.UserDTO;
 import com.PayMyBuddy.PayMyBuddy.Data.TestData;
 import com.PayMyBuddy.PayMyBuddy.Model.User;
 import com.PayMyBuddy.PayMyBuddy.Repository.UserDAO;
@@ -26,10 +27,15 @@ import org.springframework.security.authentication.TestingAuthenticationToken;
 import org.springframework.security.core.context.SecurityContext;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.context.SecurityContextImpl;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.test.annotation.DirtiesContext;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
 
+import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Collections;
+
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
 @AutoConfigureTestDatabase
 @ExtendWith(SpringExtension.class)
@@ -47,6 +53,9 @@ public class UserTestIT {
     @Autowired
     private TestEntityManager testEntityManager;
 
+    @Autowired
+    PasswordEncoder passwordEncoder;
+
     @MockBean
     ApplicationUserService applicationUserService;
 
@@ -62,6 +71,7 @@ public class UserTestIT {
         SecurityContextHolder.setContext(securitycontext);
 
         UserService userService = new UserService();
+        userService.setPasswordEncoder(passwordEncoder);
         userService.setModelMapper(modelMapper);
         userService.setUserDAO(userDAO);
         userController.setUserService(userService);
@@ -70,10 +80,39 @@ public class UserTestIT {
     @Test
     void getUserByIdTestIT() {
         //Given
+        testEntityManager.persist(new User("A","B","a@a.be",100,"mdp"));
         Integer id = 1;
+        UserDTO expected = new UserDTO(1,"A","B","a@a.be",100);
+        UserDTO result;
         //When
-
+        result = userController.getUserById(id).getBody();
         //Then
-        //assertEquals(expected, result);
+        assertEquals(expected, result);
+    }
+
+    @Test
+    void getUserByEmailTestIT() {
+        //Given
+        testEntityManager.persist(new User("A","B","a@a.be",100,"mdp"));
+        String email = "a@a.be";
+        UserDTO expected = new UserDTO(1,"A","B","a@a.be",100);
+        UserDTO result;
+        //When
+        result = userController.getUserByEmail(email).getBody();
+        //Then
+        assertEquals(expected, result);
+    }
+
+    @Test
+    void addUserTestIT() {
+        //Given
+        User userToAdd = new User("A","B","a@a.be",100,"mdp");
+        Iterable<User> expected = new ArrayList<>(Arrays.asList(new User(1,"A","B","a@a.be",100,passwordEncoder.encode("mdp"))));
+        Iterable<User> result;
+        //When
+        userController.addUser(userToAdd);
+         result = userDAO.findAll();
+        //Then
+        assertEquals(expected, result);
     }
 }
