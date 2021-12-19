@@ -18,6 +18,10 @@ public class TransactionController {
     @Autowired
     TransactionService transactionService;
 
+    public void setTransactionService(TransactionService transactionService) {
+        this.transactionService = transactionService;
+    }
+
     @PostMapping(value="/addtransaction")
     public ResponseEntity<Transaction>addTransaction(@RequestBody Transaction addTransaction){
         if(addTransaction.getSenderId() == 0 || addTransaction.getReceiverId() == 0 || addTransaction.getAmount() == 0 ){
