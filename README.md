@@ -21,16 +21,16 @@ Things you need :
 <p><u>Database</u></p>
 <ul>
 <li>Create your DB</li>
-<li>Execute ```bash sql_structure.sql``` in your db to create your table structure</li>
-<li>Execute ```bash sql_demodata.sql``` to have demo data in your tables </li>
+<li>Execute "sql_structure.sql" in your db to create your table structure</li>
+<li>Execute "sql_demodata.sql" to have demo data in your tables </li>
 </ul>
 <p>
 
 
 <p><u>Back-end</u></p>
 <ul>
-<li>Setup your DB address in application.properties at ```bash spring.datasource.url```</li>
-<li>Launch it with ```bash mvn spring-boot:run -Dspring-boot.run.arguments="--spring.datasource.username=YOUR_USERNAME --spring.datasource.password=YOUR_PASSWORD"```</li>
+<li>Setup your DB address in application.properties at "spring.datasource.url"</li>
+<li>Launch it with "mvn spring-boot:run -Dspring-boot.run.arguments="--spring.datasource.username=YOUR_USERNAME --spring.datasource.password=YOUR_PASSWORD"</li>
 </ul>
 
 
@@ -41,7 +41,7 @@ Things you need :
 <li>run npm install</li>
 <li>run "npm run serve" </li>
 <li>Access the app at http://localhost:8080/ </li>
-<li>demo users mail are ```bash a@d.be, j@d.be, john@doe.com``` and password is : ```bash mdp```</li>
+<li>demo users mail are "a@d.be, j@d.be, john@doe.com" and password is : "mdp"</li>
 </ul>
 
 
