@@ -86,4 +86,12 @@ public class UserControllerTest {
         //When & Then
         mockMvc.perform(post("/signup").contentType(MediaType.APPLICATION_JSON).content(TestUtils.asJsonString(userToAdd))).andExpect(status().isCreated());
     }
+
+    @Test
+    public void addUserNoContentTest() throws Exception{
+        //Given
+        User userToAdd = new User();
+        //When & Then
+        mockMvc.perform(post("/signup").contentType(MediaType.APPLICATION_JSON).content(TestUtils.asJsonString(userToAdd))).andExpect(status().isNoContent());
+    }
 }

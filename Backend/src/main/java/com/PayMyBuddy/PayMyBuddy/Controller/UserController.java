@@ -16,6 +16,10 @@ public class UserController {
     @Autowired
     UserService userService;
 
+    public void setUserService(UserService userService) {
+        this.userService = userService;
+    }
+
     @GetMapping(value="/userById")
     public ResponseEntity<UserDTO> getUserById(@RequestParam(value = "id") int id){
         UserDTO user = userService.convertToDto(userService.getUserById(id));

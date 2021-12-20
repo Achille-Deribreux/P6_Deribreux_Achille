@@ -20,6 +20,13 @@ public class BankAccount {
     @Column(name = "bank")
     private String bank;
 
+    public BankAccount(int id, int userId, int accountNumber, String bank) {
+        this.id = id;
+        this.userId = userId;
+        this.accountNumber = accountNumber;
+        this.bank = bank;
+    }
+
     public BankAccount(int userId, int accountNumber, String bank) {
         this.userId = userId;
         this.accountNumber = accountNumber;

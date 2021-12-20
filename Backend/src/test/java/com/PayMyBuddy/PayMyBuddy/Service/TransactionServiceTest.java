@@ -131,6 +131,7 @@ public class TransactionServiceTest {
         Integer amount = 100;
         Integer accountNumber = 123456789;
         CreditBankAccountDTO creditBankAccountDTO = new CreditBankAccountDTO(userId,amount,accountNumber);
+        double amountWithTaxes = amount+amount*0.005;
         //When
         transactionService.withdrawCreditBankAccount(creditBankAccountDTO);
         //Then

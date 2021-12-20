@@ -30,6 +30,14 @@ public class UserService {
         this.userDAO = userDAO;
     }
 
+    public void setPasswordEncoder(PasswordEncoder passwordEncoder) {
+        this.passwordEncoder = passwordEncoder;
+    }
+
+    public void setModelMapper(ModelMapper modelMapper) {
+        this.modelMapper = modelMapper;
+    }
+
     public void addMoneyToBalance(Integer userId, double moneyToAdd){
         User user = getUserById(userId);
         user.setBalance(user.getBalance() + moneyToAdd);

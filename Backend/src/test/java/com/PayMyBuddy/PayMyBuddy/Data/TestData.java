@@ -141,8 +141,24 @@ public class TestData {
 
     public static List<TransactionDTO> getSampleForTransactionDTO(){
         return new ArrayList<>(Arrays.asList(
-                new TransactionDTO("X X","+500€","hl", Formatter.convertDate(LocalDateTime.now())),
-                new TransactionDTO("X X","-1000€","hl",Formatter.convertDate(LocalDateTime.now()))
+                new TransactionDTO("X X","-1000.0€","hl",Formatter.convertDate(LocalDateTime.now())),
+                new TransactionDTO("X X","+500.0€","hl", Formatter.convertDate(LocalDateTime.now()))
+        ));
+    }
+
+    public static List<Connection> getSampleConnectionListForJPATest(){
+        return new ArrayList<>(Arrays.asList(
+                new Connection(1,1,2),
+                new Connection(2,1,3),
+                new Connection(3,1,4)
+        ));
+    }
+
+    public static List<BankAccount> getSampleBankAccountListWithDbId() {
+        return new ArrayList<>(Arrays.asList(
+                new BankAccount(1,1, 123, "CBC"),
+                new BankAccount(2,1, 12345, "CBC"),
+                new BankAccount(3,1, 12346, "CBC")
         ));
     }
 }

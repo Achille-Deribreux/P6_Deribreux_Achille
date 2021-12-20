@@ -66,6 +66,14 @@ public class TransactionControllerTest {
     }
 
     @Test
+    public void addTransactionNoContentTest() throws Exception{
+        //Given
+        Transaction transactionToAdd = new Transaction();
+        //When & Then
+        mockMvc.perform(post("/addtransaction").contentType(MediaType.APPLICATION_JSON).content(TestUtils.asJsonString(transactionToAdd))).andExpect(status().isNoContent());
+    }
+
+    @Test
     public void addMoneyFromAccountTest() throws Exception{
         //Given
         CreditBankAccountDTO creditBankAccountDTO = TestData.getSampleCreditBankAccountDTO();
@@ -74,11 +82,27 @@ public class TransactionControllerTest {
     }
 
     @Test
+    public void addMoneyFromAccountNoContentTest() throws Exception{
+        //Given
+        CreditBankAccountDTO creditBankAccountDTO = new CreditBankAccountDTO();
+        //When & Then
+        mockMvc.perform(post("/addMoneyFromAccount").contentType(MediaType.APPLICATION_JSON).content(TestUtils.asJsonString(creditBankAccountDTO))).andExpect(status().isNoContent());
+    }
+
+    @Test
     public void sendMoneyToAccountTest() throws Exception{
         //Given
         CreditBankAccountDTO creditBankAccountDTO = TestData.getSampleCreditBankAccountDTO();
         //When & Then
         mockMvc.perform(post("/sendMoneyToAccount").contentType(MediaType.APPLICATION_JSON).content(TestUtils.asJsonString(creditBankAccountDTO))).andExpect(status().isCreated());
+    }
+
+    @Test
+    public void sendMoneyToAccountNoContentTest() throws Exception{
+        //Given
+        CreditBankAccountDTO creditBankAccountDTO = new CreditBankAccountDTO();
+        //When & Then
+        mockMvc.perform(post("/sendMoneyToAccount").contentType(MediaType.APPLICATION_JSON).content(TestUtils.asJsonString(creditBankAccountDTO))).andExpect(status().isNoContent());
     }
 
 }

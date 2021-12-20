@@ -56,6 +56,14 @@ public class ConnectionControllerTest {
     }
 
     @Test
+    public void addconnectionNoContentTest() throws Exception{
+        //Given
+        AddConnection addConnection = new AddConnection();
+        //When & Then
+        mockMvc.perform(post("/addconnection").contentType(MediaType.APPLICATION_JSON).content(TestUtils.asJsonString(addConnection))).andExpect(status().isNoContent());
+    }
+
+    @Test
     public void getConnectionsIdByIdTest() throws Exception{
         //Given
         int id = 3;

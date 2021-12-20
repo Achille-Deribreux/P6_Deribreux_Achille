@@ -18,6 +18,10 @@ public class ConnectionController {
     @Autowired
     ConnectionService connectionService;
 
+    public void setConnectionService(ConnectionService connectionService) {
+        this.connectionService = connectionService;
+    }
+
     @PostMapping(value="/addconnection")
     public ResponseEntity<Connection> addConnection(@RequestBody AddConnection addConnection){
         if(addConnection.getUserid() == 0 || addConnection.getFriendemail() == null){
