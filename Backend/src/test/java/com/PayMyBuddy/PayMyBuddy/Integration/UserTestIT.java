@@ -107,11 +107,11 @@ public class UserTestIT {
     void addUserTestIT() {
         //Given
         User userToAdd = new User("A","B","a@a.be",100,"mdp");
-        Iterable<User> expected = new ArrayList<>(Arrays.asList(new User(1,"A","B","a@a.be",100,passwordEncoder.encode("mdp"))));
+        Iterable<User> expected = new ArrayList<>(Arrays.asList(new User(1,"A","B","a@a.be",100,"mdp")));
         Iterable<User> result;
         //When
         userController.addUser(userToAdd);
-         result = userDAO.findAll();
+        result = userDAO.findAll();
         //Then
         assertEquals(expected, result);
     }

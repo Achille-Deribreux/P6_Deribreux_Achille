@@ -1,5 +1,8 @@
 package com.PayMyBuddy.PayMyBuddy.Model;
 
+import com.PayMyBuddy.PayMyBuddy.Configuration.PasswordConfig;
+import org.springframework.security.crypto.password.PasswordEncoder;
+
 import javax.persistence.*;
 import java.util.Objects;
 
@@ -99,7 +102,7 @@ public class User {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         User user = (User) o;
-        return id == user.id && Double.compare(user.balance, balance) == 0 && Objects.equals(firstName, user.firstName) && Objects.equals(lastName, user.lastName) && Objects.equals(email, user.email) && Objects.equals(password, user.password);
+        return id == user.id && Double.compare(user.balance, balance) == 0 && Objects.equals(firstName, user.firstName) && Objects.equals(lastName, user.lastName) && Objects.equals(email, user.email) && Objects.equals(password, user.password) || PasswordConfig.passwordEncoder().matches(password, user.password);
     }
 
     @Override
