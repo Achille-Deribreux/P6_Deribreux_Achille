@@ -28,7 +28,11 @@ Things you need :
 
 
 <p><u>Back-end</u></p>
-<p>Launch it with "mvn.."</p>
+<ul>
+<li>Setup your DB address in application.properties at `spring.datasource.url`</li>
+<li>Launch it with `mvn spring-boot:run -Dspring-boot.run.arguments="--spring.datasource.username=YOUR_USERNAME --spring.datasource.password=YOUR_PASSWORD"`</li>
+</ul>
+
 
 
 <p><u>Front-end</u></p>
