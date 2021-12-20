@@ -69,9 +69,10 @@ public class UserService {
     }
 
     public User addUser (User userToAdd){
-        if(getUserByEmail(userToAdd.getEmail())!=null){
+        try {
+            getUserByEmail(userToAdd.getEmail());
             throw new UserAlreadyExistsException();
-        }else {
+        }catch (UserNotFoundException e){
             userToAdd.setPassword(passwordEncoder.encode(userToAdd.getPassword()));
             return userDAO.save(userToAdd);
         }
