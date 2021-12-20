@@ -89,6 +89,14 @@ export default {
       })
        .then(response => response.json())
         .then((response) => {
+          if(response.httpStatus == 'CONFLICT'){
+            this.$bvToast.toast('Email address already assigned', {
+              title: "Error",
+              variant: "danger",
+              solid: true
+        });
+          }
+          else{
           this.$bvToast.toast('Account created !', {
               title: "Success",
               variant: "success",
@@ -96,6 +104,7 @@ export default {
         });
             this.$store.commit("SET_USERDATA",response);
             this.$router.push('/');
+          }
         })
         .catch(function() {
            this.$bvToast.toast('Impossible to create an account', {

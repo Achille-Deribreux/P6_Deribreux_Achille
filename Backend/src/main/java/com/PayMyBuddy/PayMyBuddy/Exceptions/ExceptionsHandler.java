@@ -2,6 +2,7 @@ package com.PayMyBuddy.PayMyBuddy.Exceptions;
 
 import com.PayMyBuddy.PayMyBuddy.Exceptions.CustomExceptions.BankAccountNotFoundException;
 import com.PayMyBuddy.PayMyBuddy.Exceptions.CustomExceptions.NotEnoughBalanceException;
+import com.PayMyBuddy.PayMyBuddy.Exceptions.CustomExceptions.UserAlreadyExistsException;
 import com.PayMyBuddy.PayMyBuddy.Exceptions.CustomExceptions.UserNotFoundException;
 import com.PayMyBuddy.PayMyBuddy.Model.CustomErrorResponse;
 import org.apache.logging.log4j.LogManager;
@@ -20,6 +21,13 @@ public class ExceptionsHandler {
 
     @ExceptionHandler(UserNotFoundException.class)
     public ResponseEntity<Object> handleUserNotFoundException(UserNotFoundException e){
+        logger.error("User not found");
+        CustomErrorResponse res = new CustomErrorResponse(e.getMessage(),e, HttpStatus.CONFLICT, ZonedDateTime.now());
+        return new ResponseEntity<>(res, HttpStatus.CONFLICT);
+    }
+
+    @ExceptionHandler(UserAlreadyExistsException.class)
+    public ResponseEntity<Object> handleUserAlreadyExistsException(UserAlreadyExistsException e){
         logger.error("User not found");
         CustomErrorResponse res = new CustomErrorResponse(e.getMessage(),e, HttpStatus.CONFLICT, ZonedDateTime.now());
         return new ResponseEntity<>(res, HttpStatus.CONFLICT);

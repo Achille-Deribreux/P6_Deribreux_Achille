@@ -2,6 +2,7 @@ package com.PayMyBuddy.PayMyBuddy.Service;
 
 import com.PayMyBuddy.PayMyBuddy.DTO.UserDTO;
 import com.PayMyBuddy.PayMyBuddy.Exceptions.CustomExceptions.NotEnoughBalanceException;
+import com.PayMyBuddy.PayMyBuddy.Exceptions.CustomExceptions.UserAlreadyExistsException;
 import com.PayMyBuddy.PayMyBuddy.Exceptions.CustomExceptions.UserNotFoundException;
 import com.PayMyBuddy.PayMyBuddy.Model.User;
 import com.PayMyBuddy.PayMyBuddy.Repository.UserDAO;
@@ -68,8 +69,12 @@ public class UserService {
     }
 
     public User addUser (User userToAdd){
-        userToAdd.setPassword(passwordEncoder.encode(userToAdd.getPassword()));
-        return userDAO.save(userToAdd);
+        if(getUserByEmail(userToAdd.getEmail())!=null){
+            throw new UserAlreadyExistsException();
+        }else {
+            userToAdd.setPassword(passwordEncoder.encode(userToAdd.getPassword()));
+            return userDAO.save(userToAdd);
+        }
     }
 
     public UserDTO convertToDto(User user){

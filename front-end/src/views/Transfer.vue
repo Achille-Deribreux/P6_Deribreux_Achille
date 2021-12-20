@@ -65,7 +65,7 @@ name: 'Transfer',
        .then(response => response.json())
         .then((response) => {
           if(response.httpStatus == 'UNAUTHORIZED'){
-            this.$bvToast.toast('Not enought money', {
+            this.$bvToast.toast('Not enough money', {
               title: "Error",
               variant: "danger",
               solid: true
